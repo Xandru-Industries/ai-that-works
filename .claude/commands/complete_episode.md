@@ -83,12 +83,19 @@ Emails typically follow this format:
 - **Sign-off**: "Happy coding 🧑‍💻" followed by "Vaibhav & Dex" or similar
 
 12. **Humanize the Email**
-These emails often come sound like AI slop. Rewrite the email, applying the following rules to make it sound more human-like:
-   1. Remove any repetitive "It's not X, it's Y" or an overreliance on em-dashes. Humans don't write like that.
-   2. Vary sentence length.
-   3. Replace abstract concepts with concrete examples. Push the concepts to include specific "for example" moments that readers can immediately picture. Example before this rule: "Email agents must handle cancellations, corrections, and race conditions." Example after this rule: "when a user sends a follow-up saying 'actually no, I have an onsite' five seconds after their first email, the system needs to handle that gracefully."
-   4. Convert descriptions into actionable implications. Don't just explain what something is. Show what you can do with it. Example before this rule: "Email isn't just for communication—it's where business data already lives..." Example after this rule: "You should be able to forward a vendor email to create a task, or have a customer inquiry automatically update your CRM."
-   5. Make call to actions specific with direct links. Generated emails frequently have vague CTAs ("check it out", "learn more"). Always add the specific link, date, or next step so the reader doesn't have to hunt for it.
+These emails often sound like AI slop. Rewrite the email applying the following rules to make it sound more human-like:
+
+   1. **Ban em-dashes entirely.** Do not use — anywhere in the email. Not once. If you find yourself wanting to use an em-dash, rewrite the sentence instead. Split it into two sentences, use a comma, use a colon, or restructure it. Em-dashes are the single clearest signal that an AI wrote something. Before finalizing, do a literal search for "—" and rewrite every instance.
+
+   2. **Remove "It's not X, it's Y" constructions.** These sound like debate club. Just say the thing directly.
+
+   3. **Vary sentence length.** Short sentences land harder. Long sentences are fine when you need to explain something with nuance, but don't make every sentence the same length or it starts to feel like a robot found a cadence and got stuck in it.
+
+   4. **Replace abstract concepts with concrete examples.** Push every takeaway to include a specific "for example" moment that readers can immediately picture. Example before: "Email agents must handle cancellations, corrections, and race conditions." Example after: "when a user sends a follow-up saying 'actually no, I have an onsite' five seconds after their first email, the system needs to handle that gracefully."
+
+   5. **Convert descriptions into actionable implications.** Don't just explain what something is. Show what you can do with it. Example before: "Email isn't just for communication—it's where business data already lives..." Example after: "You should be able to forward a vendor email to create a task, or have a customer inquiry automatically update your CRM."
+
+   6. **Make CTAs specific with direct links.** No vague "check it out" or "learn more." Always include the actual link, date, or next step inline so the reader doesn't have to hunt for it.
 
 
 ## Email Notes

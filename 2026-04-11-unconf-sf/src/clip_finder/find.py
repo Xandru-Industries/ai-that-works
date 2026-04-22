@@ -94,6 +94,9 @@ def _compute_clip_times(
     }
 
 
+_DEFAULT_MAX_CLIPS = 10
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Find highlight clips from unconference talk transcripts."
@@ -103,6 +106,12 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         required=True,
         help="Parent directory containing per-video talk subdirectories (each with segments.json).",
+    )
+    parser.add_argument(
+        "--max-clips",
+        type=int,
+        default=_DEFAULT_MAX_CLIPS,
+        help=f"Maximum clips in final output after ranking (default: {_DEFAULT_MAX_CLIPS}).",
     )
     return parser.parse_args()
 
@@ -189,6 +198,34 @@ def main() -> None:
                         **times,
                     }
                 )
+
+    if len(all_clips) > args.max_clips:
+        print(f"\n{len(all_clips)} candidates — ranking to top {args.max_clips}...")
+        from baml_client.types import ClipSummary
+
+        summaries = [
+            ClipSummary(
+                index=i,
+                hook=c["hook"],
+                rationale=c["rationale"],
+                talk_title=c["talk_title"],
+            )
+            for i, c in enumerate(all_clips)
+        ]
+        selected_indices = b.SelectTopClips(
+            candidates=summaries,
+            max_clips=args.max_clips,
+        )
+        # Deduplicate while preserving order; guard against out-of-range indices
+        seen: set[int] = set()
+        kept: list[dict] = []
+        for idx in selected_indices:
+            if idx in seen or idx < 0 or idx >= len(all_clips):
+                continue
+            seen.add(idx)
+            kept.append(all_clips[idx])
+        all_clips = kept
+        print(f"→ {len(all_clips)} clips selected")
 
     clips_path = output_dir / "clips.json"
     clips_path.write_text(
