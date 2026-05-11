@@ -12,12 +12,12 @@
 
 <div align="center">
 <h2>🦄 <strong>Next Episode</strong></h2>
-<h3><strong>Harness Engineering Without the Hype</strong></h3>
-<p><strong>Tuesday, April 21, 2026 at 10 AM PST</strong></p>
-<p><em>This week on the pod we are going to cut through the hype around harness engineering and separate the signal from the noise. Join us to watch Dex crash out about this and expose the reality.
+<h3><strong>OpenAI tells you not to build your own harness</strong></h3>
+<p><strong>Tuesday, May 5, 2026 at 10 AM PST</strong></p>
+<p><em>Harness engineering is all the hype now, so on this week on the podcast we're looking back to an article written by OpenAI in February about harness engineering, "Harness engineering: leveraging Codex in an agent-first world". In this article, they claim that the era of "hand-written code" is officially over. We break down their experiment of shipping a million-line product with zero manual coding, shifting the human role from "coder" to "environment designer."
 </em></p>
 
-<a href="https://luma.com/harness-eng-hype" target="_blank">
+<a href="https://luma.com/harness-eng-article-discussion" target="_blank">
 <img src="https://img.shields.io/badge/🦄_REGISTER_NOW-Join_Live_Session-ff4444?style=for-the-badge&logo=calendar" alt="Register Now">
 </a>
 
@@ -101,10 +101,36 @@ Before joining, get familiar with our toolkit:
         <div style="margin-bottom: 2px;">
           <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
         </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-05-05</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#56</strong>: OpenAI tells you not to build your own harness</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="./2026-05-05-openai-tells-you-not-to-build-your-own-harness">code</a> • <a href="https://luma.com/harness-eng-article-discussion">register</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">Harness engineering is all the hype now, so on this week on the podcast we're looking back to an article written by OpenAI in February about harness engineering, "Harness engineering: leveraging Codex in an agent-first world". In this article, they claim that the era of "hand-written code" is officially over. We break down their experiment of shipping a million-line product with zero manual coding, shifting the human role from "coder" to "environment designer."
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-04-28</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#55</strong>: No Vibes Allowed - Building Design Docs with AI</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="https://www.youtube.com/watch?v=KCqsoXveqiI">watch</a> • <a href="./2026-04-28-no-vibes-design-docs">code</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">In this month's no vibes allowed episode, Vaibhav will show how he uses AI to make design docs for complicated tasks by building out an actual design doc for a feature in BAML. As always for our no vibes allowed series, we will be solving real problems in real production systems.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-04-21</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#54</strong>: Harness Engineering Without the Hype</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="https://github.com/ai-that-works/ai-that-works">code</a> • <a href="https://luma.com/harness-eng-hype">register</a>
+          <a href="https://www.youtube.com/watch?v=gX9WpYY61xA">watch</a> • <a href="./2026-04-21-harness-engineering-without-the-hype">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">This week on the pod we are going to cut through the hype around harness engineering and separate the signal from the noise. Join us to watch Dex crash out about this and expose the reality.

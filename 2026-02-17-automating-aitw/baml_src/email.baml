@@ -190,6 +190,7 @@ function FixAIPatterns(draft: EmailDraft, patterns: AIPattern[]) -> EmailDraft {
     - Sign off as "Vaibhav & Dex"
     - Keep the 🦄 emoji in the opening
     - Keep the 🧑‍💻 emoji at the end
+    - NEVER use em-dashes (—) anywhere in the email. Not once. This is the single clearest signal that AI wrote something. If you find yourself wanting to use an em-dash, rewrite the sentence instead: split it into two sentences, use a comma, use a colon, or restructure it entirely. Before finalizing, do a literal search for "—" and rewrite every single instance.
 
     {{ ctx.output_format }}
   "#

@@ -16,8 +16,44 @@
       <link>https://github.com/ai-that-works/ai-that-works</link>
     </image>
     <atom:link href="https://github.com/ai-that-works/ai-that-works/raw/main/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Fri, 17 Apr 2026 19:33:35 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 04 May 2026 17:01:18 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title><![CDATA[No Vibes Allowed - Building Design Docs with AI]]></title>
+      <description><![CDATA[In this month's no vibes allowed episode, Vaibhav will show how he uses AI to make design docs for complicated tasks by building out an actual design doc for a feature in BAML. As always for our no vibes allowed series, we will be solving real problems in real production systems.
+
+
+Watch: https://www.youtube.com/watch?v=KCqsoXveqiI
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-04-28-no-vibes-design-docs
+Event: https://luma.com/no-vibes-design-docs
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=KCqsoXveqiI</link>
+      <guid isPermaLink="false">aitw-055</guid>
+      <pubDate>Tue, 28 Apr 2026 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=KCqsoXveqiI" type="video/youtube" />
+    </item>
+    <item>
+      <title><![CDATA[Harness Engineering Without the Hype]]></title>
+      <description><![CDATA[This week on the pod we are going to cut through the hype around harness engineering and separate the signal from the noise. Join us to watch Dex crash out about this and expose the reality.
+
+
+Watch: https://www.youtube.com/watch?v=gX9WpYY61xA
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-04-21-harness-engineering-without-the-hype
+Event: https://luma.com/harness-eng-hype
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=gX9WpYY61xA</link>
+      <guid isPermaLink="false">aitw-054</guid>
+      <pubDate>Tue, 21 Apr 2026 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=gX9WpYY61xA" type="video/youtube" />
+    </item>
     <item>
       <title><![CDATA[Agentic Coding for Frontend Apps]]></title>
       <description><![CDATA[We do a lot of deep research and planning advice for building complex backend systems but in this week's episode, we're gonna talk about ways you can move faster and maintain quality for frontend code.

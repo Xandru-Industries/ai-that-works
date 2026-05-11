@@ -1,6 +1,47 @@
 {
   "episodes": [
     {
+      "folder": "2026-05-05-openai-tells-you-not-to-build-your-own-harness",
+      "guid": "aitw-056",
+      "title": "OpenAI tells you not to build your own harness",
+      "description": "Harness engineering is all the hype now, so on this week on the podcast we're looking back to an article written by OpenAI in February about harness engineering, \"Harness engineering: leveraging Codex in an agent-first world\". In this article, they claim that the era of \"hand-written code\" is officially over. We break down their experiment of shipping a million-line product with zero manual coding, shifting the human role from \"coder\" to \"environment designer.\"\n",
+      "event_link": "https://luma.com/harness-eng-article-discussion",
+      "eventDate": "2026-05-05T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt",
+        "type": "video/youtube"
+      },
+      "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-05-05-openai-tells-you-not-to-build-your-own-harness"
+      },
+      "season": 2,
+      "episode": 56,
+      "isPast": false,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2026-04-28-no-vibes-design-docs",
+      "guid": "aitw-055",
+      "title": "No Vibes Allowed - Building Design Docs with AI",
+      "description": "In this month's no vibes allowed episode, Vaibhav will show how he uses AI to make design docs for complicated tasks by building out an actual design doc for a feature in BAML. As always for our no vibes allowed series, we will be solving real problems in real production systems.\n",
+      "event_link": "https://luma.com/no-vibes-design-docs",
+      "eventDate": "2026-04-28T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/watch?v=KCqsoXveqiI",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://www.youtube.com/watch?v=KCqsoXveqiI",
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-04-28-no-vibes-design-docs"
+      },
+      "season": 2,
+      "episode": 55,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
       "folder": "2026-04-21-harness-engineering-without-the-hype",
       "guid": "aitw-054",
       "title": "Harness Engineering Without the Hype",
@@ -9,15 +50,16 @@
       "eventDate": "2026-04-21T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": "https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt",
+        "url": "https://www.youtube.com/watch?v=gX9WpYY61xA",
         "type": "video/youtube"
       },
       "links": {
-        "code": "https://github.com/ai-that-works/ai-that-works"
+        "youtube": "https://www.youtube.com/watch?v=gX9WpYY61xA",
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-04-21-harness-engineering-without-the-hype"
       },
       "season": 2,
       "episode": 54,
-      "isPast": false,
+      "isPast": true,
       "isWorkshop": false
     },
     {
@@ -1193,15 +1235,15 @@
     }
   ],
   "meta": {
-    "totalEpisodes": 57,
-    "completedEpisodes": 53,
+    "totalEpisodes": 59,
+    "completedEpisodes": 55,
     "upcomingEpisodes": 1,
     "workshops": 3,
     "seasons": [
       1,
       2
     ],
-    "lastUpdated": "2026-04-17T19:33:35.724Z",
+    "lastUpdated": "2026-05-04T17:01:18.142Z",
     "generatedBy": "validate-metadata.ts"
   }
 }
