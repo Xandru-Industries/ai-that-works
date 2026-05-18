@@ -1,6 +1,26 @@
 {
   "episodes": [
     {
+      "folder": "2026-05-12-code-mode-deep-dive",
+      "guid": "aitw-057",
+      "title": "\"Code Mode\" Deep Dive",
+      "description": "On Monday, Pash from OpenAI shared that Codex has a secret \"code mode\" feature - an alternative to traditional tool calling. There's a lot of debate going on around the best way to give tools to models - skills vs. mcps, CLIs and bash vs custom tools, or letting the model write code for everything. In this episode we're going to cut through the hype and dive deep on the differences and tradeoffs between these methods.\n\n   • What is \"code mode\" and how does it work\n   • Tradeoffs between MCP vs. Bash+CLI vs. Code mode\n   • Why it matters to agent or harness builders\n",
+      "event_link": "https://luma.com/code-mode-deep-dive",
+      "eventDate": "2026-05-12T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt",
+        "type": "video/youtube"
+      },
+      "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-05-12-code-mode-deep-dive"
+      },
+      "season": 2,
+      "episode": 57,
+      "isPast": false,
+      "isWorkshop": false
+    },
+    {
       "folder": "2026-05-05-openai-tells-you-not-to-build-your-own-harness",
       "guid": "aitw-056",
       "title": "OpenAI tells you not to build your own harness",
@@ -9,15 +29,16 @@
       "eventDate": "2026-05-05T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": "https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt",
+        "url": "https://www.youtube.com/watch?v=h99bTZTR_IU",
         "type": "video/youtube"
       },
       "links": {
+        "youtube": "https://www.youtube.com/watch?v=h99bTZTR_IU",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-05-05-openai-tells-you-not-to-build-your-own-harness"
       },
       "season": 2,
       "episode": 56,
-      "isPast": false,
+      "isPast": true,
       "isWorkshop": false
     },
     {
@@ -1235,15 +1256,15 @@
     }
   ],
   "meta": {
-    "totalEpisodes": 59,
-    "completedEpisodes": 55,
+    "totalEpisodes": 60,
+    "completedEpisodes": 56,
     "upcomingEpisodes": 1,
     "workshops": 3,
     "seasons": [
       1,
       2
     ],
-    "lastUpdated": "2026-05-04T17:01:18.142Z",
+    "lastUpdated": "2026-05-11T17:29:43.375Z",
     "generatedBy": "validate-metadata.ts"
   }
 }

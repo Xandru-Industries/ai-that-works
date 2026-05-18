@@ -6,10 +6,11 @@ description: |
 event_link: https://luma.com/harness-eng-article-discussion
 eventDate: 2026-05-05T18:00:00Z
 media:
-  url: https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt
+  url: https://www.youtube.com/watch?v=h99bTZTR_IU
   type: video/youtube
 links:
   code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-05-05-openai-tells-you-not-to-build-your-own-harness
+  youtube: https://www.youtube.com/watch?v=h99bTZTR_IU
 season: 2
 episode: 56
 event_type: episode

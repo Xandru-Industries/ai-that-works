@@ -16,8 +16,26 @@
       <link>https://github.com/ai-that-works/ai-that-works</link>
     </image>
     <atom:link href="https://github.com/ai-that-works/ai-that-works/raw/main/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Mon, 04 May 2026 17:01:18 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 11 May 2026 17:29:43 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title><![CDATA[OpenAI tells you not to build your own harness]]></title>
+      <description><![CDATA[Harness engineering is all the hype now, so on this week on the podcast we're looking back to an article written by OpenAI in February about harness engineering, "Harness engineering: leveraging Codex in an agent-first world". In this article, they claim that the era of "hand-written code" is officially over. We break down their experiment of shipping a million-line product with zero manual coding, shifting the human role from "coder" to "environment designer."
+
+
+Watch: https://www.youtube.com/watch?v=h99bTZTR_IU
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-05-05-openai-tells-you-not-to-build-your-own-harness
+Event: https://luma.com/harness-eng-article-discussion
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=h99bTZTR_IU</link>
+      <guid isPermaLink="false">aitw-056</guid>
+      <pubDate>Tue, 05 May 2026 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=h99bTZTR_IU" type="video/youtube" />
+    </item>
     <item>
       <title><![CDATA[No Vibes Allowed - Building Design Docs with AI]]></title>
       <description><![CDATA[In this month's no vibes allowed episode, Vaibhav will show how he uses AI to make design docs for complicated tasks by building out an actual design doc for a feature in BAML. As always for our no vibes allowed series, we will be solving real problems in real production systems.
