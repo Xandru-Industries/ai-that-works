@@ -12,16 +12,14 @@
 
 <div align="center">
 <h2>🦄 <strong>Next Episode</strong></h2>
-<h3><strong>"Code Mode" Deep Dive</strong></h3>
-<p><strong>Tuesday, May 12, 2026 at 10 AM PST</strong></p>
-<p><em>On Monday, Pash from OpenAI shared that Codex has a secret "code mode" feature - an alternative to traditional tool calling. There's a lot of debate going on around the best way to give tools to models - skills vs. mcps, CLIs and bash vs custom tools, or letting the model write code for everything. In this episode we're going to cut through the hype and dive deep on the differences and tradeoffs between these methods.
+<h3><strong>Feature Flag Everything?</strong></h3>
+<p><strong>Tuesday, May 19, 2026 at 10 AM PST</strong></p>
+<p><em>This week, the top headline is vibe coders realizing that they can use feature flags to ship experimental (read: slop) features to production without impacting all customers.
 
-   • What is "code mode" and how does it work
-   • Tradeoffs between MCP vs. Bash+CLI vs. Code mode
-   • Why it matters to agent or harness builders
+Shipping code is a lot harder when everything is changing all the time. Feature flags can be a good technique to test various things, but how do you set that up? Do you feature flag new models? New prompts? New harnesses? We'll dive into details here and see where feature flags improve your product delivery vs. just giving you an excuse to ship more slop.
 </em></p>
 
-<a href="https://luma.com/code-mode-deep-dive" target="_blank">
+<a href="https://luma.com/feature-flag-everything" target="_blank">
 <img src="https://img.shields.io/badge/🦄_REGISTER_NOW-Join_Live_Session-ff4444?style=for-the-badge&logo=calendar" alt="Register Now">
 </a>
 
@@ -105,10 +103,25 @@ Before joining, get familiar with our toolkit:
         <div style="margin-bottom: 2px;">
           <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
         </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-05-19</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#58</strong>: Feature Flag Everything?</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="./2026-05-19-feature-flag-everything">code</a> • <a href="https://luma.com/feature-flag-everything">register</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">This week, the top headline is vibe coders realizing that they can use feature flags to ship experimental (read: slop) features to production without impacting all customers.
+
+Shipping code is a lot harder when everything is changing all the time. Feature flags can be a good technique to test various things, but how do you set that up? Do you feature flag new models? New prompts? New harnesses? We'll dive into details here and see where feature flags improve your product delivery vs. just giving you an excuse to ship more slop.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-05-12</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#57</strong>: "Code Mode" Deep Dive</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2026-05-12-code-mode-deep-dive">code</a> • <a href="https://luma.com/code-mode-deep-dive">code</a>
+          <a href="./2026-05-12-code-mode-deep-dive">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">On Monday, Pash from OpenAI shared that Codex has a secret "code mode" feature - an alternative to traditional tool calling. There's a lot of debate going on around the best way to give tools to models - skills vs. mcps, CLIs and bash vs custom tools, or letting the model write code for everything. In this episode we're going to cut through the hype and dive deep on the differences and tradeoffs between these methods.

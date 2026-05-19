@@ -1,6 +1,26 @@
 {
   "episodes": [
     {
+      "folder": "2026-05-19-feature-flag-everything",
+      "guid": "aitw-058",
+      "title": "Feature Flag Everything?",
+      "description": "This week, the top headline is vibe coders realizing that they can use feature flags to ship experimental (read: slop) features to production without impacting all customers.\n\nShipping code is a lot harder when everything is changing all the time. Feature flags can be a good technique to test various things, but how do you set that up? Do you feature flag new models? New prompts? New harnesses? We'll dive into details here and see where feature flags improve your product delivery vs. just giving you an excuse to ship more slop.\n",
+      "event_link": "https://luma.com/feature-flag-everything",
+      "eventDate": "2026-05-19T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt",
+        "type": "video/youtube"
+      },
+      "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-05-19-feature-flag-everything"
+      },
+      "season": 2,
+      "episode": 58,
+      "isPast": false,
+      "isWorkshop": false
+    },
+    {
       "folder": "2026-05-12-code-mode-deep-dive",
       "guid": "aitw-057",
       "title": "\"Code Mode\" Deep Dive",
@@ -17,7 +37,7 @@
       },
       "season": 2,
       "episode": 57,
-      "isPast": false,
+      "isPast": true,
       "isWorkshop": false
     },
     {
@@ -1256,7 +1276,7 @@
     }
   ],
   "meta": {
-    "totalEpisodes": 60,
+    "totalEpisodes": 61,
     "completedEpisodes": 56,
     "upcomingEpisodes": 1,
     "workshops": 3,
@@ -1264,7 +1284,7 @@
       1,
       2
     ],
-    "lastUpdated": "2026-05-11T17:29:43.375Z",
+    "lastUpdated": "2026-05-18T18:40:41.906Z",
     "generatedBy": "validate-metadata.ts"
   }
 }
