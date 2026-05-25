@@ -12,14 +12,12 @@
 
 <div align="center">
 <h2>🦄 <strong>Next Episode</strong></h2>
-<h3><strong>Feature Flag Everything?</strong></h3>
-<p><strong>Tuesday, May 19, 2026 at 10 AM PST</strong></p>
-<p><em>This week, the top headline is vibe coders realizing that they can use feature flags to ship experimental (read: slop) features to production without impacting all customers.
-
-Shipping code is a lot harder when everything is changing all the time. Feature flags can be a good technique to test various things, but how do you set that up? Do you feature flag new models? New prompts? New harnesses? We'll dive into details here and see where feature flags improve your product delivery vs. just giving you an excuse to ship more slop.
+<h3><strong>No Vibes Allowed: Performance Engineering</strong></h3>
+<p><strong>Tuesday, May 26, 2026 at 10 AM PST</strong></p>
+<p><em>This week on the podcast, we are doing another no vibes allowed episode focusing on performance engineering. We will dive into high-performance engineering on virtual machines to help you maximize efficiency out of your compute infrastructure. When you are deploying heavy LLM workloads or complex pipelines, an unoptimized VM can lead to crippling latency, memory bottlenecks, and ballooning costs that break your application in the real world. We break down practical techniques to configure your environments, manage resources, and eliminate overhead so your models run flawlessly under pressure.
 </em></p>
 
-<a href="https://luma.com/feature-flag-everything" target="_blank">
+<a href="https://luma.com/no-vibes-allowed-performance-eng" target="_blank">
 <img src="https://img.shields.io/badge/🦄_REGISTER_NOW-Join_Live_Session-ff4444?style=for-the-badge&logo=calendar" alt="Register Now">
 </a>
 
@@ -103,10 +101,23 @@ Before joining, get familiar with our toolkit:
         <div style="margin-bottom: 2px;">
           <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
         </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-05-26</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#59</strong>: No Vibes Allowed: Performance Engineering</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="https://github.com/ai-that-works/ai-that-works">code</a> • <a href="https://luma.com/no-vibes-allowed-performance-eng">register</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">This week on the podcast, we are doing another no vibes allowed episode focusing on performance engineering. We will dive into high-performance engineering on virtual machines to help you maximize efficiency out of your compute infrastructure. When you are deploying heavy LLM workloads or complex pipelines, an unoptimized VM can lead to crippling latency, memory bottlenecks, and ballooning costs that break your application in the real world. We break down practical techniques to configure your environments, manage resources, and eliminate overhead so your models run flawlessly under pressure.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-05-19</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#58</strong>: Feature Flag Everything?</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2026-05-19-feature-flag-everything">code</a> • <a href="https://luma.com/feature-flag-everything">register</a>
+          <a href="./2026-05-19-feature-flag-everything">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">This week, the top headline is vibe coders realizing that they can use feature flags to ship experimental (read: slop) features to production without impacting all customers.

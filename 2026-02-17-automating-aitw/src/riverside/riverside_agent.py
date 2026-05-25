@@ -221,44 +221,60 @@ class RiversideAgent:
             print("Login may have succeeded, continuing...")
 
     def _open_new_session_form(self) -> None:
-        """Navigate to schedule page and open the new session form."""
-        # Click on "Schedule" in the sidebar
-        print("Clicking on Schedule in sidebar...")
-        schedule_link = self.page.locator("text=Schedule").first
-        schedule_link.click(timeout=10000)
+        """Navigate to Planner and open the new session form."""
+        print("Clicking on Planner in sidebar...")
+        planner_selectors = [
+            "text=Planner",
+            "[aria-label*='Planner' i]",
+            "a:has-text('Planner')",
+            "button:has-text('Planner')",
+        ]
+        clicked = False
+        for selector in planner_selectors:
+            try:
+                elem = self.page.locator(selector).first
+                if elem.is_visible(timeout=3000):
+                    elem.click()
+                    clicked = True
+                    print(f"Clicked Planner with selector: {selector}")
+                    break
+            except Exception:
+                continue
+
+        if not clicked:
+            raise RuntimeError("Could not find 'Planner' in sidebar")
+
         self.page.wait_for_timeout(2000)
         self.screenshot("schedule_page")
 
-        # Look for "+ New" button on schedule page (NOT the "What's New" modal!)
+        # Click the "+ New" button in the top right of the calendar
         print("Looking for '+ New' button...")
-        clicked = False
-
-        # Try to find the "+ New" button by position (it's in the top-right)
+        new_clicked = False
         try:
             buttons_with_new = self.page.locator("button").filter(has_text="New").all()
             for btn in buttons_with_new:
                 try:
                     box = btn.bounding_box()
-                    # The "+ New" button should be in the top-right area (x > 1000, y < 200)
-                    if box and box['x'] > 1000 and box['y'] < 200:
+                    # The "+ New" button is in the top-right area
+                    if box and box['x'] > 900 and box['y'] < 200:
                         print(f"Found '+ New' button at ({box['x']}, {box['y']})")
                         btn.click()
-                        clicked = True
+                        new_clicked = True
                         break
                 except Exception:
                     continue
         except Exception as e:
-            print(f"Could not find + New button by position: {e}")
+            print(f"Error finding + New button: {e}")
 
-        if not clicked:
+        if not new_clicked:
             self.screenshot("error_no_new_session_button")
             raise RuntimeError("Could not find '+ New' button")
 
         self.page.wait_for_timeout(1000)
         self.screenshot("dropdown_menu")
 
-        # After clicking "+ New", a dropdown appears with "Session" and "Webinar" options
-        print("Clicking on 'Session' option in dropdown...")
+        # After clicking "+ New", check if a dropdown or form panel appears
+        # Try clicking "Session" from dropdown if it appears
         self._click_session_option()
 
         self.page.wait_for_timeout(1000)
@@ -314,8 +330,9 @@ class RiversideAgent:
         name_filled = False
 
         name_selectors = [
-            "[data-testid='create-schedule-title'] input",
             "input[placeholder*='Session name' i]",
+            "[placeholder*='Session name' i]",
+            "[data-testid='create-schedule-title'] input",
             "input[placeholder*='name' i]",
             "[data-testid*='title'] input",
             "input[name='name']",
@@ -324,7 +341,8 @@ class RiversideAgent:
         for selector in name_selectors:
             try:
                 elem = self.page.locator(selector).first
-                if elem.is_visible(timeout=1000):
+                if elem.is_visible(timeout=2000):
+                    elem.click()
                     elem.fill(name)
                     print(f"Filled name input with selector: {selector}")
                     name_filled = True
@@ -333,16 +351,19 @@ class RiversideAgent:
                 continue
 
         if not name_filled:
-            # Try clicking directly on the "Session name*" area
-            print("Trying to click directly on session name area...")
+            # Click near the "Session name" label and type
+            print("Trying to click near 'Session name' label...")
             try:
-                self.page.mouse.click(550, 175)
-                self.page.wait_for_timeout(500)
-                self.page.keyboard.type(name)
-                print("Typed session name via direct click and keyboard")
-                name_filled = True
+                label = self.page.locator("text=Session name").first
+                box = label.bounding_box()
+                if box:
+                    self.page.mouse.click(box['x'] + box['width'] / 2, box['y'] + 40)
+                    self.page.wait_for_timeout(300)
+                    self.page.keyboard.type(name)
+                    print("Typed session name via label click")
+                    name_filled = True
             except Exception as e:
-                print(f"Direct click failed: {e}")
+                print(f"Label click failed: {e}")
 
         if not name_filled:
             self.screenshot("error_session_name")
@@ -356,6 +377,7 @@ class RiversideAgent:
         desc_filled = False
 
         desc_selectors = [
+            "textarea[placeholder*='Add description' i]",
             "textarea[placeholder*='Description' i]",
             "textarea[placeholder*='description' i]",
             "[data-testid*='description'] textarea",
@@ -489,6 +511,8 @@ class RiversideAgent:
 
             # Use combined selector for faster matching
             combined_selector = (
+                "input[placeholder='example@email.com'], "
+                "input[placeholder*='example@email' i], "
                 "input[placeholder*='Invite people via email' i], "
                 "input[placeholder*='invite' i], "
                 "[data-testid*='invite'] input, "
@@ -625,39 +649,66 @@ class RiversideAgent:
         print(f"Setting start time: {start_time}")
         print(f"Setting end time: {end_time}")
 
-        # Set start time
-        self._select_time_from_dropdown(780, start_time, "start")
-
-        # Set end time
-        self._select_time_from_dropdown(895, end_time, "end")
+        # Find the two time buttons in the form — they show the current time values
+        # They appear side-by-side as clickable buttons (e.g. "05:00 PM" and "06:00 PM")
+        self._select_time_from_button(0, start_time, "start")
+        self._select_time_from_button(1, end_time, "end")
 
         self.screenshot("datetime_set")
 
-    def _select_time_from_dropdown(self, x_position: int, target_time: str, label: str) -> None:
-        """Select a time from the time picker dropdown."""
+    def _select_time_from_button(self, button_index: int, target_time: str, label: str) -> None:
+        """Click the Nth time button in the session form, then pick from the dropdown list."""
         print(f"Opening {label} time dropdown...")
-        self.page.mouse.click(x_position, 270)
+
+        # The time pickers are buttons containing time strings like "05:00 PM"
+        # They sit inside the date/time row of the session creation form
+        time_btn_selectors = [
+            "button:has-text('AM'), button:has-text('PM')",
+        ]
+
+        # Collect all visible time buttons (AM or PM)
+        try:
+            all_time_btns = self.page.locator("button").filter(
+                has=self.page.locator("text=/\\d{1,2}:\\d{2} (AM|PM)/")
+            ).all()
+            visible_btns = [b for b in all_time_btns if b.is_visible()]
+            if len(visible_btns) > button_index:
+                btn = visible_btns[button_index]
+                print(f"Clicking time button {button_index}: '{btn.text_content()}'")
+                btn.click()
+            else:
+                print(f"Not enough time buttons found ({len(visible_btns)}), falling back to position click")
+                # Fallback positions based on new UI layout
+                x_positions = [1078, 1192]
+                self.page.mouse.click(x_positions[button_index], 199)
+        except Exception as e:
+            print(f"Error clicking time button: {e}")
+            x_positions = [1078, 1192]
+            self.page.mouse.click(x_positions[button_index], 199)
+
         self.page.wait_for_timeout(800)
         self.screenshot(f"{label}_time_dropdown")
 
+        # Try to find the target time in the dropdown list
         time_option = self.page.locator(f"li:has-text('{target_time}')").first
         if time_option.is_visible(timeout=3000):
             time_option.click()
             print(f"Selected {label} time: {target_time}")
         else:
-            print(f"Could not find time option {target_time}, trying to scroll...")
+            print(f"Could not find '{target_time}' in list, trying to scroll...")
             dropdown = self.page.locator("ul[role='listbox']").or_(
-                self.page.locator("[class*='MuiList']")
+                self.page.locator("[role='listbox']")
             ).first
             if dropdown.is_visible(timeout=1000):
-                dropdown.evaluate("el => el.scrollTop = 0")
+                # Scroll down to find later times (8 PM is far down the list)
+                dropdown.evaluate("el => el.scrollTop = el.scrollHeight * 0.7")
                 self.page.wait_for_timeout(300)
                 time_option = self.page.locator(f"li:has-text('{target_time}')").first
                 if time_option.is_visible(timeout=1000):
                     time_option.click()
                     print(f"Selected {label} time after scroll: {target_time}")
                 else:
-                    print(f"Still could not find {target_time}")
+                    print(f"Still could not find '{target_time}', pressing Escape")
                     self.page.keyboard.press("Escape")
             else:
                 self.page.keyboard.press("Escape")
@@ -709,10 +760,7 @@ class RiversideAgent:
         self._fill_session_name(session.name)
         self._fill_description(session.description)
 
-        try:
-            self._set_timezone_pst()
-        except Exception as e:
-            print(f"Could not set timezone: {e}")
+        # Timezone already defaults to GMT-05:00 Chicago in the new UI — no change needed
 
         if session.guests:
             self._add_session_guests(session.guests)
