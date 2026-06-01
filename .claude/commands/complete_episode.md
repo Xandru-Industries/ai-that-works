@@ -40,9 +40,31 @@ Update the just-completed episode README and meta.md with YouTube link, thumbnai
      [![Episode Title](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
      ```
      Extract the VIDEO_ID from the YouTube URL (the part after v= or youtu.be/)
-   - Leave whiteboards and links sections blank for manual addition
+   - Leave links sections blank for manual addition
    - Navigate to the just-completed episode folder
    - Update the README with the provided summary
+
+4b. **Capture Whiteboards**:
+   - Get the episode date from `meta.md` (the `eventDate` field, formatted as `YYYY-MM-DD`)
+   - Run:
+     ```bash
+     cd 2026-02-17-automating-aitw
+     uv run python -m src.excalidraw.browser_agent --date <YYYY-MM-DD> --output <abs_path_to_episode_folder>
+     ```
+   - If **successful** (exit code 0):
+     - Parse the `BOARD_URL: <url>` line from stdout
+     - Add the URL to `meta.md` under a `whiteboards:` YAML list field
+     - Replace the `## Whiteboards` section in the README with:
+       ```markdown
+       ## Whiteboards
+
+       [![Whiteboard 1](./whiteboard-1.png)](<BOARD_URL>)
+       ```
+   - If the script exits with **"Session expired or not logged in"** error:
+     - Tell the user: "Run this to log in, then I'll retry: `cd 2026-02-17-automating-aitw && uv run python -m src.excalidraw.browser_agent --login`"
+     - After they confirm, re-run the browser agent command above
+   - If the script exits with **"No board found"** error:
+     - Leave `## Whiteboards` blank and note it for the user to fill manually
 
 5. **Run the tools to regenerate the JSON manifest**
    - cd tools && bun run readme

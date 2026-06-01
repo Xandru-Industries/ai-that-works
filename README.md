@@ -12,12 +12,12 @@
 
 <div align="center">
 <h2>🦄 <strong>Next Episode</strong></h2>
-<h3><strong>No Vibes Allowed: Performance Engineering</strong></h3>
-<p><strong>Tuesday, May 26, 2026 at 10 AM PST</strong></p>
-<p><em>This week on the podcast, we are doing another no vibes allowed episode focusing on performance engineering. We will dive into high-performance engineering on virtual machines to help you maximize efficiency out of your compute infrastructure. When you are deploying heavy LLM workloads or complex pipelines, an unoptimized VM can lead to crippling latency, memory bottlenecks, and ballooning costs that break your application in the real world. We break down practical techniques to configure your environments, manage resources, and eliminate overhead so your models run flawlessly under pressure.
+<h3><strong>multilingual AI apps</strong></h3>
+<p><strong>Tuesday, June 2, 2026 at 10 AM PST</strong></p>
+<p><em>In this episode, we discuss the challenge of building multilingual AI applications that perform consistently whether your user is interacting in English, Spanish, French, whatever. Can you simply run an English prompt through a basic translator? Or will that break down in production? We'll be breaking down practical engineering strategies for designing flexible, cross-lingual prompt architectures that maintain semantic alignment without forcing you to build and manage separate pipelines for every language.
 </em></p>
 
-<a href="https://luma.com/no-vibes-allowed-performance-eng" target="_blank">
+<a href="https://luma.com/multilingual-ai-apps" target="_blank">
 <img src="https://img.shields.io/badge/🦄_REGISTER_NOW-Join_Live_Session-ff4444?style=for-the-badge&logo=calendar" alt="Register Now">
 </a>
 
@@ -101,10 +101,23 @@ Before joining, get familiar with our toolkit:
         <div style="margin-bottom: 2px;">
           <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
         </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-06-02</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#60</strong>: multilingual AI apps</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="./2026-06-02-multilingual-ai-apps">code</a> • <a href="https://luma.com/multilingual-ai-apps">register</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">In this episode, we discuss the challenge of building multilingual AI applications that perform consistently whether your user is interacting in English, Spanish, French, whatever. Can you simply run an English prompt through a basic translator? Or will that break down in production? We'll be breaking down practical engineering strategies for designing flexible, cross-lingual prompt architectures that maintain semantic alignment without forcing you to build and manage separate pipelines for every language.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-05-26</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#59</strong>: No Vibes Allowed: Performance Engineering</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="https://github.com/ai-that-works/ai-that-works">code</a> • <a href="https://luma.com/no-vibes-allowed-performance-eng">register</a>
+          <a href="https://github.com/ai-that-works/ai-that-works">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">This week on the podcast, we are doing another no vibes allowed episode focusing on performance engineering. We will dive into high-performance engineering on virtual machines to help you maximize efficiency out of your compute infrastructure. When you are deploying heavy LLM workloads or complex pipelines, an unoptimized VM can lead to crippling latency, memory bottlenecks, and ballooning costs that break your application in the real world. We break down practical techniques to configure your environments, manage resources, and eliminate overhead so your models run flawlessly under pressure.
