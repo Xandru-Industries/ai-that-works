@@ -16,8 +16,30 @@
       <link>https://github.com/ai-that-works/ai-that-works</link>
     </image>
     <atom:link href="https://github.com/ai-that-works/ai-that-works/raw/main/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Sat, 30 May 2026 15:25:20 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jun 2026 17:08:54 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title><![CDATA["Code Mode" Deep Dive]]></title>
+      <description><![CDATA[On Monday, Pash from OpenAI shared that Codex has a secret "code mode" feature - an alternative to traditional tool calling. There's a lot of debate going on around the best way to give tools to models - skills vs. mcps, CLIs and bash vs custom tools, or letting the model write code for everything. In this episode we're going to cut through the hype and dive deep on the differences and tradeoffs between these methods.
+
+   • What is "code mode" and how does it work
+   • Tradeoffs between MCP vs. Bash+CLI vs. Code mode
+   • Why it matters to agent or harness builders
+
+
+Watch: https://www.youtube.com/watch?v=0dx3j4CmSFw
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-05-12-code-mode-deep-dive
+Event: https://luma.com/code-mode-deep-dive
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=0dx3j4CmSFw</link>
+      <guid isPermaLink="false">aitw-057</guid>
+      <pubDate>Tue, 12 May 2026 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=0dx3j4CmSFw" type="video/youtube" />
+    </item>
     <item>
       <title><![CDATA[OpenAI tells you not to build your own harness]]></title>
       <description><![CDATA[Harness engineering is all the hype now, so on this week on the podcast we're looking back to an article written by OpenAI in February about harness engineering, "Harness engineering: leveraging Codex in an agent-first world". In this article, they claim that the era of "hand-written code" is officially over. We break down their experiment of shipping a million-line product with zero manual coding, shifting the human role from "coder" to "environment designer."

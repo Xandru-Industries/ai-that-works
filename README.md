@@ -145,7 +145,7 @@ Shipping code is a lot harder when everything is changing all the time. Feature 
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-05-12</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#57</strong>: "Code Mode" Deep Dive</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2026-05-12-code-mode-deep-dive">code</a>
+          <a href="https://www.youtube.com/watch?v=0dx3j4CmSFw">watch</a> • <a href="./2026-05-12-code-mode-deep-dive">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">On Monday, Pash from OpenAI shared that Codex has a secret "code mode" feature - an alternative to traditional tool calling. There's a lot of debate going on around the best way to give tools to models - skills vs. mcps, CLIs and bash vs custom tools, or letting the model write code for everything. In this episode we're going to cut through the hype and dive deep on the differences and tradeoffs between these methods.

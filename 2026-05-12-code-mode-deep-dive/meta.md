@@ -10,10 +10,11 @@ description: |
 event_link: https://luma.com/code-mode-deep-dive
 eventDate: 2026-05-12T18:00:00Z
 media:
-  url: https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt
+  url: https://www.youtube.com/watch?v=0dx3j4CmSFw
   type: video/youtube
 links:
   code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-05-12-code-mode-deep-dive
+  youtube: https://www.youtube.com/watch?v=0dx3j4CmSFw
 season: 2
 episode: 57
 event_type: episode
