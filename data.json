@@ -1,6 +1,26 @@
 {
   "episodes": [
     {
+      "folder": "2026-06-09-agent-observability",
+      "guid": "aitw-061",
+      "title": "agent observability",
+      "description": "In this episode, we will dive into AI agent observability and answer a question every production engineer eventually faces: how do you diagnose why an autonomous agent went off the rails three days ago?\n\nWhen you are dealing with non-deterministic tools, old-school debugging habits like inserting `print(\"here\")` statements fails to scale. We will break down the essentials of modern agent tracking, from implementing structured logging for complex tool calls to establishing robust tracing that allows you to replay and reconstruct an agent's exact decision tree.\n",
+      "event_link": "https://luma.com/agent-observability",
+      "eventDate": "2026-06-09T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt",
+        "type": "video/youtube"
+      },
+      "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works"
+      },
+      "season": 2,
+      "episode": 61,
+      "isPast": false,
+      "isWorkshop": false
+    },
+    {
       "folder": "2026-06-02-multilingual-ai-apps",
       "guid": "aitw-060",
       "title": "multilingual AI apps",
@@ -9,15 +29,16 @@
       "eventDate": "2026-06-02T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": "https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt",
+        "url": "https://www.youtube.com/watch?v=-gFdtc-HbOY",
         "type": "video/youtube"
       },
       "links": {
-        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-06-02-multilingual-ai-apps"
+        "youtube": "https://www.youtube.com/watch?v=-gFdtc-HbOY",
+        "code": "https://github.com/hellovai/ai-that-works/tree/main/2026-06-02-multilingual-ai-apps"
       },
       "season": 2,
       "episode": 60,
-      "isPast": false,
+      "isPast": true,
       "isWorkshop": false
     },
     {
@@ -1317,15 +1338,15 @@
     }
   ],
   "meta": {
-    "totalEpisodes": 63,
-    "completedEpisodes": 57,
+    "totalEpisodes": 64,
+    "completedEpisodes": 58,
     "upcomingEpisodes": 1,
     "workshops": 3,
     "seasons": [
       1,
       2
     ],
-    "lastUpdated": "2026-06-01T17:08:54.227Z",
+    "lastUpdated": "2026-06-05T16:54:05.771Z",
     "generatedBy": "validate-metadata.ts"
   }
 }

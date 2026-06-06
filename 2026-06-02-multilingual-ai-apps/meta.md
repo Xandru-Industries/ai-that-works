@@ -6,10 +6,11 @@ description: |
 event_link: https://luma.com/multilingual-ai-apps
 eventDate: 2026-06-02T18:00:00Z
 media:
-  url: https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt
+  url: https://www.youtube.com/watch?v=-gFdtc-HbOY
   type: video/youtube
 links:
-  code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-06-02-multilingual-ai-apps
+  code: https://github.com/hellovai/ai-that-works/tree/main/2026-06-02-multilingual-ai-apps
+  youtube: https://www.youtube.com/watch?v=-gFdtc-HbOY
 season: 2
 episode: 60
 event_type: episode
