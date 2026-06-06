@@ -70,11 +70,12 @@
       "eventDate": "2026-05-19T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": "https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt",
+        "url": "https://www.youtube.com/watch?v=gRqb7R4Pcrs",
         "type": "video/youtube"
       },
       "links": {
-        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-05-19-feature-flag-everything"
+        "youtube": "https://www.youtube.com/watch?v=gRqb7R4Pcrs",
+        "code": "https://github.com/hellovai/ai-that-works/tree/main/2026-05-19-feature-flag-everything"
       },
       "season": 2,
       "episode": 58,
@@ -1339,14 +1340,14 @@
   ],
   "meta": {
     "totalEpisodes": 64,
-    "completedEpisodes": 58,
+    "completedEpisodes": 59,
     "upcomingEpisodes": 1,
     "workshops": 3,
     "seasons": [
       1,
       2
     ],
-    "lastUpdated": "2026-06-05T16:54:05.771Z",
+    "lastUpdated": "2026-06-06T01:15:29.490Z",
     "generatedBy": "validate-metadata.ts"
   }
 }

@@ -16,7 +16,7 @@
       <link>https://github.com/ai-that-works/ai-that-works</link>
     </image>
     <atom:link href="https://github.com/ai-that-works/ai-that-works/raw/main/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Fri, 05 Jun 2026 16:54:05 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jun 2026 01:15:29 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
       <title><![CDATA[multilingual AI apps]]></title>
@@ -35,6 +35,26 @@ AI That Works - Weekly conversations about production-ready AI engineering with 
       <category>Software Engineering</category>
       <category>Artificial Intelligence</category>
       <enclosure url="https://www.youtube.com/watch?v=-gFdtc-HbOY" type="video/youtube" />
+    </item>
+    <item>
+      <title><![CDATA[Feature Flag Everything?]]></title>
+      <description><![CDATA[This week, the top headline is vibe coders realizing that they can use feature flags to ship experimental (read: slop) features to production without impacting all customers.
+
+Shipping code is a lot harder when everything is changing all the time. Feature flags can be a good technique to test various things, but how do you set that up? Do you feature flag new models? New prompts? New harnesses? We'll dive into details here and see where feature flags improve your product delivery vs. just giving you an excuse to ship more slop.
+
+
+Watch: https://www.youtube.com/watch?v=gRqb7R4Pcrs
+Code: https://github.com/hellovai/ai-that-works/tree/main/2026-05-19-feature-flag-everything
+Event: https://luma.com/feature-flag-everything
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=gRqb7R4Pcrs</link>
+      <guid isPermaLink="false">aitw-058</guid>
+      <pubDate>Tue, 19 May 2026 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=gRqb7R4Pcrs" type="video/youtube" />
     </item>
     <item>
       <title><![CDATA["Code Mode" Deep Dive]]></title>

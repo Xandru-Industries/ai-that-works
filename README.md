@@ -147,7 +147,7 @@ When you are dealing with non-deterministic tools, old-school debugging habits l
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-05-19</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#58</strong>: Feature Flag Everything?</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2026-05-19-feature-flag-everything">code</a>
+          <a href="https://www.youtube.com/watch?v=gRqb7R4Pcrs">watch</a> • <a href="https://github.com/hellovai/ai-that-works/tree/main/2026-05-19-feature-flag-everything">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">This week, the top headline is vibe coders realizing that they can use feature flags to ship experimental (read: slop) features to production without impacting all customers.

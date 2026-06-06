@@ -8,10 +8,11 @@ description: |
 event_link: https://luma.com/feature-flag-everything
 eventDate: 2026-05-19T18:00:00Z
 media:
-  url: https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt
+  url: https://www.youtube.com/watch?v=gRqb7R4Pcrs
   type: video/youtube
 links:
-  code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-05-19-feature-flag-everything
+  code: https://github.com/hellovai/ai-that-works/tree/main/2026-05-19-feature-flag-everything
+  youtube: https://www.youtube.com/watch?v=gRqb7R4Pcrs
 season: 2
 episode: 58
 event_type: episode
