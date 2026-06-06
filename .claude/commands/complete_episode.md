@@ -3,7 +3,7 @@
 This command updates episode documentation and writes an email after completing a live session.
 
 ## Overview
-Update the just-completed episode README and meta.md with YouTube link, thumbnail, and summary and update the main README with episode details. Then write an email.md file for the episode.
+Update the just-completed episode README and meta.md with YouTube link, thumbnail, and summary and update the main README with episode details. Then write an email.md file for the episode. Finally, back-fill the episode README's `## Key Takeaways` section from the finished email so the two stay in sync.
 
 ## Steps
 
@@ -118,6 +118,22 @@ These emails often sound like AI slop. Rewrite the email applying the following 
    5. **Convert descriptions into actionable implications.** Don't just explain what something is. Show what you can do with it. Example before: "Email isn't just for communication—it's where business data already lives..." Example after: "You should be able to forward a vendor email to create a task, or have a customer inquiry automatically update your CRM."
 
    6. **Make CTAs specific with direct links.** No vague "check it out" or "learn more." Always include the actual link, date, or next step inline so the reader doesn't have to hunt for it.
+
+
+13. **Populate the README "Key Takeaways" from the finished email**
+
+   The email.md is the source of truth for the takeaways. Once it is fully written and humanized (step 12), back-fill the episode README's `## Key Takeaways` section so the two stay in sync. Do this LAST, after the email is final, not from the raw transcript.
+
+   - Open the target episode's `README.md`. The `## Key Takeaways` section is usually present but empty (header immediately followed by `## Resources`). If the header is missing entirely, create it in the same position sibling episodes use (after `## Whiteboards`, before `## Resources`).
+   - Read the finished `email.md`. Its bolded points (and the "if you remember one thing" closer) ARE the takeaways. Distill them into **4-6 bullets**.
+   - Match the established house style exactly. Each bullet is a bold lead sentence stating the insight, followed by a concrete supporting explanation drawn from the email, usually with a specific example. Use backticks for code/technical terms. For example:
+     ```markdown
+     - **Code mode's biggest win is output shaping.** In bash, getting only the PR URL from `gh pr create` means piping through `jq` and hoping the model remembers to do it. In code mode, you write `const prResult = await tools.github.createPR(); console.log(prResult.url)` and only that URL goes into context.
+     ```
+   - Draw ONLY from the email content. Do not invent facts that aren't in the email.
+   - Preserve structure: `## Key Takeaways`, blank line, the bullets, blank line, the next header. Do not modify any other part of the README.
+   - Reference a recent filled-in example (e.g. `2026-05-12-code-mode-deep-dive/README.md`) to confirm the style before writing.
+   - When completing several episodes at once, this step is independent per folder and can be delegated to one subagent per episode in parallel.
 
 
 ## Email Notes
