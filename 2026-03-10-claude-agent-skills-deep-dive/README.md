@@ -13,6 +13,11 @@ Links:
 
 ## Key Takeaways
 
+- **Skills and subagents solve different problems — don't conflate them.** A subagent gives you a fresh context window, great for long, token-heavy tasks you want to run in isolation. A skill gives you a way to inject instructions into any context window, parent or child, on demand. Most people conflate the two because before skills existed, custom subagents were the only way to bundle instructions; now that skills exist, you can use each for what it's actually good at.
+- **Use subagents for context isolation, not for carrying instructions.** When a task is going to generate a ton of tokens — like a Playwright agent clicking around the DOM — you fork it into a subagent so it doesn't pollute your main context. For a set of instructions you want to inject on demand, like "here's how we write backend code," reach for a skill instead.
+- **Watch your context window tool budget.** Every subagent description, every skill description, and every MCP tool gets injected into your context window on every turn. If you have 30 skills installed globally, those descriptions are eating into the token budget your model uses to follow your actual instructions. Claude Code mitigates this with a tool search feature past a certain threshold, but the simpler fix is to install fewer things and be intentional about what's global vs. per-project.
+- **Use `disable_model_invocation: true` for skills that should only be user-triggered.** If you have a skill meant to be run as a slash command and not auto-invoked by the agent mid-task, add this flag in the skill frontmatter. It removes the skill from the context window entirely, so the model doesn't see it or try to call it on its own.
+
 ## Resources
 
 - [rpi-coordination repository](https://github.com/humanlayer/rpi-coordination-template)

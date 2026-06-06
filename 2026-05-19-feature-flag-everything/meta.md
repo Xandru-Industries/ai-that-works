@@ -1,6 +1,6 @@
 ---
 guid: aitw-058
-title: "Feature Flag Everything?"
+title: "How AI Agents Can Safely Ship Code to Production"
 description: |
   This week, the top headline is vibe coders realizing that they can use feature flags to ship experimental (read: slop) features to production without impacting all customers.
 

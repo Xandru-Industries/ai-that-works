@@ -13,6 +13,12 @@ Links:
 
 ## Key Takeaways
 
+- **MCP is a plugin system, not an SDK replacement.** Its core job is just two things: list all functions and call a function. It shines when it lets your *users* bring their own tools — like a Jira MCP your app never had to integrate — but breaks down when you reach for it instead of calling an SDK yourself. If you control the code and know what you need, write the integration.
+- **Every tool definition is an instruction the model has to attend to.** Adding the GitHub MCP doesn't just grant GitHub access — it injects 60,000 tokens of function definitions into every call, and models don't know which instructions matter so they try to attend to all of them. The Claude Code team fights hard for every tool they add because adding one degrades performance for every user who doesn't need it.
+- **Build first-class integrations for what everyone uses; reserve MCP for the long tail.** If 80% of your users need GitHub access, build the OAuth integration properly. When a niche MCP starts getting popular, treat that as your signal to migrate it into a first-class integration — and remember users who bring their own MCPs are already primed to expect lower quality, because they brought the code, not you.
+- **Tell users when their MCPs aren't being called.** If someone installed a Jira MCP three weeks ago and hasn't touched a ticket since, surface it: "Looks like this MCP hasn't been used in a while — want to disable it?" You're paying the context cost on every call whether the tool actually runs or not.
+- **The real question is "who is bringing this tool to the conversation?"** MCP isn't dead, but most people use it wrong. If *you* are building the integration, use an SDK. If *your users* are bringing functionality you didn't anticipate, that's exactly what MCP is for.
+
 ## Resources
 
 - [Session Recording](https://www.youtube.com/watch?v=z5inaSXkiTU)

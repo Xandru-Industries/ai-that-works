@@ -1,6 +1,6 @@
 ---
 guid: aitw-060
-title: "multilingual AI apps"
+title: "How to Build AI Agents that Work in Any Language"
 description: |
   In this episode, we discuss the challenge of building multilingual AI applications that perform consistently whether your user is interacting in English, Spanish, French, whatever. Can you simply run an English prompt through a basic translator? Or will that break down in production? We'll be breaking down practical engineering strategies for designing flexible, cross-lingual prompt architectures that maintain semantic alignment without forcing you to build and manage separate pipelines for every language.
 event_link: https://luma.com/multilingual-ai-apps
