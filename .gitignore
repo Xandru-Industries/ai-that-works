@@ -156,3 +156,5 @@ node_modules/
 *.mp4
 
 2026-04-11-unconf-sf/output/
+!2026-04-11-unconf-sf/output/xposts/
+!2026-04-11-unconf-sf/output/xposts/**
