@@ -1,6 +1,26 @@
 {
   "episodes": [
     {
+      "folder": "2026-06-16-product-specs-with-ai",
+      "guid": "aitw-062",
+      "title": "Product Specs with AI",
+      "description": "We've talked a lot about design discussions for planning work with AI and getting leverage before writing the code, but this process has a common pitfall: it combines product decisions (how does it work, what is the user experience) with technical decisions (how do we build it, what patterns do we follow).\n\nThis complecting of concerns can cause important questions to be missed. On today's AI that works we'll dig into techniques to split out product vs. technical questions to enable less-technical folks to participate in product specification that is grounded in codebase research, and ensure technical depth is achieved without getting distracted by product questions.\n",
+      "event_link": "https://luma.com/ai-product-specs",
+      "eventDate": "2026-06-16T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt",
+        "type": "video/youtube"
+      },
+      "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-06-16-product-specs-with-ai"
+      },
+      "season": 2,
+      "episode": 62,
+      "isPast": false,
+      "isWorkshop": false
+    },
+    {
       "folder": "2026-06-09-agent-observability",
       "guid": "aitw-061",
       "title": "agent observability",
@@ -17,13 +37,13 @@
       },
       "season": 2,
       "episode": 61,
-      "isPast": false,
+      "isPast": true,
       "isWorkshop": false
     },
     {
       "folder": "2026-06-02-multilingual-ai-apps",
       "guid": "aitw-060",
-      "title": "multilingual AI apps",
+      "title": "How to Build AI Agents that Work in Any Language",
       "description": "In this episode, we discuss the challenge of building multilingual AI applications that perform consistently whether your user is interacting in English, Spanish, French, whatever. Can you simply run an English prompt through a basic translator? Or will that break down in production? We'll be breaking down practical engineering strategies for designing flexible, cross-lingual prompt architectures that maintain semantic alignment without forcing you to build and manage separate pipelines for every language.\n",
       "event_link": "https://luma.com/multilingual-ai-apps",
       "eventDate": "2026-06-02T18:00:00Z",
@@ -64,7 +84,7 @@
     {
       "folder": "2026-05-19-feature-flag-everything",
       "guid": "aitw-058",
-      "title": "Feature Flag Everything?",
+      "title": "How AI Agents Can Safely Ship Code to Production",
       "description": "This week, the top headline is vibe coders realizing that they can use feature flags to ship experimental (read: slop) features to production without impacting all customers.\n\nShipping code is a lot harder when everything is changing all the time. Feature flags can be a good technique to test various things, but how do you set that up? Do you feature flag new models? New prompts? New harnesses? We'll dive into details here and see where feature flags improve your product delivery vs. just giving you an excuse to ship more slop.\n",
       "event_link": "https://luma.com/feature-flag-everything",
       "eventDate": "2026-05-19T18:00:00Z",
@@ -1339,7 +1359,7 @@
     }
   ],
   "meta": {
-    "totalEpisodes": 64,
+    "totalEpisodes": 65,
     "completedEpisodes": 59,
     "upcomingEpisodes": 1,
     "workshops": 3,
@@ -1347,7 +1367,7 @@
       1,
       2
     ],
-    "lastUpdated": "2026-06-06T01:15:29.490Z",
+    "lastUpdated": "2026-06-10T21:50:26.391Z",
     "generatedBy": "validate-metadata.ts"
   }
 }

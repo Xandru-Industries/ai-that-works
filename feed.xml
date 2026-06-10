@@ -16,10 +16,10 @@
       <link>https://github.com/ai-that-works/ai-that-works</link>
     </image>
     <atom:link href="https://github.com/ai-that-works/ai-that-works/raw/main/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Sat, 06 Jun 2026 01:15:29 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 10 Jun 2026 21:50:26 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
-      <title><![CDATA[multilingual AI apps]]></title>
+      <title><![CDATA[How to Build AI Agents that Work in Any Language]]></title>
       <description><![CDATA[In this episode, we discuss the challenge of building multilingual AI applications that perform consistently whether your user is interacting in English, Spanish, French, whatever. Can you simply run an English prompt through a basic translator? Or will that break down in production? We'll be breaking down practical engineering strategies for designing flexible, cross-lingual prompt architectures that maintain semantic alignment without forcing you to build and manage separate pipelines for every language.
 
 
@@ -37,7 +37,7 @@ AI That Works - Weekly conversations about production-ready AI engineering with 
       <enclosure url="https://www.youtube.com/watch?v=-gFdtc-HbOY" type="video/youtube" />
     </item>
     <item>
-      <title><![CDATA[Feature Flag Everything?]]></title>
+      <title><![CDATA[How AI Agents Can Safely Ship Code to Production]]></title>
       <description><![CDATA[This week, the top headline is vibe coders realizing that they can use feature flags to ship experimental (read: slop) features to production without impacting all customers.
 
 Shipping code is a lot harder when everything is changing all the time. Feature flags can be a good technique to test various things, but how do you set that up? Do you feature flag new models? New prompts? New harnesses? We'll dive into details here and see where feature flags improve your product delivery vs. just giving you an excuse to ship more slop.
