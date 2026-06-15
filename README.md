@@ -119,14 +119,14 @@ This complecting of concerns can cause important questions to be missed. On toda
           <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
         </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-06-09</div>
-        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#61</strong>: agent observability</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#61</strong>: Hands-on with Fable 5</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="https://github.com/ai-that-works/ai-that-works">code</a>
+          <a href="https://www.youtube.com/watch?v=hTkmSVuDMPg">watch</a> • <a href="./2026-06-09-agent-observability">code</a>
         </div>
       </div>
-    </td><td><div style="padding: 8px 0; line-height: 1.5;">In this episode, we will dive into AI agent observability and answer a question every production engineer eventually faces: how do you diagnose why an autonomous agent went off the rails three days ago?
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">We had agent observability on the schedule, but Anthropic shipped Fable 5 about twenty minutes before we went live, so we tossed the plan and got hands-on with the new model instead. Zero prep, all live.
 
-When you are dealing with non-deterministic tools, old-school debugging habits like inserting `print("here")` statements fails to scale. We will break down the essentials of modern agent tracking, from implementing structured logging for complex tool calls to establishing robust tracing that allows you to replay and reconstruct an agent's exact decision tree.
+This is an unscripted look at exactly how we kick the tires on a fresh model release: take the hardest problem you're already deep in, hand it over, and watch whether it finds leverage you didn't. Vaibhav ran it against an in-progress design doc for the BAML VM's observability layer, Dex ran it against an old race-condition benchmark he keeps around, and we talk through what the model caught, what it missed, and why most model releases are more hype than the value they deliver day to day.
 </div></td></tr>
 <tr><td>
       <div style="padding: 8px 0;">
