@@ -172,7 +172,10 @@ jobs:
                 "authHeader": true,
                 "compat": {
                   "supportsStore": false,
-                  "supportsReasoningEffort": false
+                  "supportsDeveloperRole": false,
+                  "supportsReasoningEffort": false,
+                  "supportsUsageInStreaming": false,
+                  "maxTokensField": "max_tokens"
                 },
                 "models": [
                   {
@@ -234,7 +237,7 @@ jobs:
             --no-prompt-templates \
             --no-themes \
             --no-approve \
-            --tools read,grep,find,ls \
+            --no-tools \
             --provider llm-proxy \
             --model "${PI_MODEL}" \
             --thinking off \
