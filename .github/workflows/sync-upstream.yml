@@ -195,6 +195,7 @@ jobs:
                   {
                     "id": "gpt-5.5",
                     "name": "GPT-5.5 via LLM proxy",
+                    "api": "openai-responses",
                     "input": ["text"],
                     "contextWindow": 400000,
                     "maxTokens": 32768
