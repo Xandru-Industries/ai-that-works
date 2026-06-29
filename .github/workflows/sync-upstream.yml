@@ -21,7 +21,7 @@ env:
   UPSTREAM_BRANCH: main
   SYNC_PR_BRANCH: sync/upstream-main
   HAS_LLM_PROXY_API_KEY: ${{ secrets.LLM_PROXY_API_KEY != '' }}
-  HAS_TAILSCALE_OAUTH: ${{ secrets.TS_OAUTH_CLIENT_ID != '' && secrets.TS_OAUTH_SECRET != '' }}
+  HAS_TAILSCALE_OAUTH: ${{ secrets.AI_THAT_WORKS_TS_OAUTH_CLIENT_ID != '' && secrets.AI_THAT_WORKS_TS_OAUTH_SECRET != '' }}
 
 jobs:
   sync:
@@ -118,8 +118,8 @@ jobs:
         if: failure() && env.HAS_LLM_PROXY_API_KEY == 'true' && env.HAS_TAILSCALE_OAUTH == 'true'
         uses: tailscale/github-action@v3
         with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          oauth-client-id: ${{ secrets.AI_THAT_WORKS_TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.AI_THAT_WORKS_TS_OAUTH_SECRET }}
           tags: tag:github-actions
 
       - name: Install Node for Pi
@@ -232,7 +232,7 @@ jobs:
 
           if [ ! -s pi-recommendation.md ]; then
             cat > pi-recommendation.md <<'EOF'
-          _Pi did not produce a recommendation. Make sure `LLM_PROXY_API_KEY`, `TS_OAUTH_CLIENT_ID`, and `TS_OAUTH_SECRET` repository secrets are configured, the Tailnet ACL allows `tag:github-actions`, and the LLM proxy is reachable at `100.72.69.60:8000`; then rerun the workflow._
+          _Pi did not produce a recommendation. Make sure `LLM_PROXY_API_KEY`, `AI_THAT_WORKS_TS_OAUTH_CLIENT_ID`, and `AI_THAT_WORKS_TS_OAUTH_SECRET` repository secrets are configured, the Tailnet ACL allows `tag:github-actions`, and the LLM proxy is reachable at `100.72.69.60:8000`; then rerun the workflow._
           EOF
           fi
 
