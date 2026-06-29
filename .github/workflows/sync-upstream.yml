@@ -199,25 +199,16 @@ jobs:
           EOF
 
           cat > pi-prompt.md <<'EOF'
-          You are Pi running in GitHub Actions after an automated fork sync failed.
+          The upstream sync failed. Resolve the merge conflict if it is safe.
 
-          Goal: resolve the failure directly in the working tree when it is safe to do so, then write a concise Markdown PR comment explaining what you changed. Do not commit and do not push; the workflow will handle git operations after you exit.
+          Rules:
+          - Edit only real repo files; ignore workflow artifact files (*.txt, sync-failure-context.md, pi-*.md).
+          - Preserve our fork's local additions unless they clearly conflict with upstream.
+          - Do not commit or push.
 
-          Context:
-          - The workflow tried to merge upstream/main into main.
-          - The current working tree may contain Git conflict markers from the failed merge.
-          - If conflicts are present, edit the conflicted files to preserve the fork's local/custom changes while incorporating upstream changes.
-          - Do not edit generated workflow artifact files such as merge-output.txt, git-status.txt, conflict-files.txt, conflict-diff.txt, sync-failure-context.md, pi-prompt.md, pi-recommendation.md, or pi-error.txt.
-          - If the captured information is insufficient to make a safe code change, do not invent one; explain what is missing and leave the tree unchanged.
-
-          Output exactly these sections:
-          1. Summary
-          2. Likely cause
-          3. Changes made by file
-          4. Remaining manual steps, if any
-          5. What to test/check after resolving
-
-          Be specific. If you could not make a safe change, say so clearly.
+          Reply in Markdown with:
+          - What changed
+          - Anything still needing human review
           EOF
 
           cat sync-failure-context.md >> pi-prompt.md
