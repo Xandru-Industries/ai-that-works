@@ -147,7 +147,7 @@ jobs:
         with:
           node-version: 24
 
-      - name: Ask Pi via LLM proxy for recommended fix
+      - name: Ask Pi via LLM proxy to resolve failure
         if: failure() && env.HAS_LLM_PROXY_API_KEY == 'true' && env.HAS_TAILSCALE_OAUTH == 'true'
         continue-on-error: true
         env:
@@ -201,21 +201,23 @@ jobs:
           cat > pi-prompt.md <<'EOF'
           You are Pi running in GitHub Actions after an automated fork sync failed.
 
-          Goal: write a concise Markdown PR comment with a recommended human fix. Do not edit files, do not commit, and do not push.
+          Goal: resolve the failure directly in the working tree when it is safe to do so, then write a concise Markdown PR comment explaining what you changed. Do not commit and do not push; the workflow will handle git operations after you exit.
 
           Context:
           - The workflow tried to merge upstream/main into main.
           - The current working tree may contain Git conflict markers from the failed merge.
-          - Use read-only inspection only.
+          - If conflicts are present, edit the conflicted files to preserve the fork's local/custom changes while incorporating upstream changes.
+          - Do not edit generated workflow artifact files such as merge-output.txt, git-status.txt, conflict-files.txt, conflict-diff.txt, sync-failure-context.md, pi-prompt.md, pi-recommendation.md, or pi-error.txt.
+          - If the captured information is insufficient to make a safe code change, do not invent one; explain what is missing and leave the tree unchanged.
 
           Output exactly these sections:
           1. Summary
           2. Likely cause
-          3. Recommended resolution by file
-          4. Local commands to fix
+          3. Changes made by file
+          4. Remaining manual steps, if any
           5. What to test/check after resolving
 
-          Be specific. If the captured information is insufficient, say what is missing and give the safest manual next step.
+          Be specific. If you could not make a safe change, say so clearly.
           EOF
 
           cat sync-failure-context.md >> pi-prompt.md
@@ -229,8 +231,8 @@ jobs:
             --no-extensions \
             --no-prompt-templates \
             --no-themes \
-            --no-approve \
-            --no-tools \
+            --approve \
+            --tools read,edit,write,grep,find,ls \
             --provider llm-proxy \
             --model "${PI_MODEL}" \
             --thinking high \
@@ -266,18 +268,20 @@ jobs:
           EOF
           fi
 
-          # Leave the conflicted merge state before creating/updating the PR branch.
-          git merge --abort 2>/dev/null || true
-          git reset --hard
-
           git remote add upstream "https://github.com/${UPSTREAM_REPO}.git" 2>/dev/null || \
             git remote set-url upstream "https://github.com/${UPSTREAM_REPO}.git"
           git fetch upstream "${UPSTREAM_BRANCH}"
 
+          pi_applied_changes="false"
+
           if [ "${FORCE_FAILURE}" = "true" ]; then
+            # The force-failure path is a synthetic test, not a real conflict for Pi to resolve.
+            git merge --abort 2>/dev/null || true
+            git reset --hard
+
             pr_branch="${TEST_SYNC_PR_BRANCH}"
             pr_title="Test upstream sync failure handling"
-            pr_body="This disposable PR was created by a manual force_failure=true workflow run to validate the upstream sync failure path and Pi recommendation comment. Do not merge."
+            pr_body="This disposable PR was created by a manual force_failure=true workflow run to validate the upstream sync failure path and Pi comment. Do not merge."
 
             git checkout -B "${pr_branch}" "origin/${BRANCH_NAME}"
             mkdir -p .github
@@ -294,12 +298,52 @@ jobs:
             git push origin "${pr_branch}:${pr_branch}" --force
           else
             pr_branch="${SYNC_PR_BRANCH}"
-            pr_title="Sync upstream/${UPSTREAM_BRANCH} into ${BRANCH_NAME}"
-            pr_body="Automated upstream sync failed while directly merging upstream/${UPSTREAM_BRANCH} into ${BRANCH_NAME}. This PR mirrors upstream/${UPSTREAM_BRANCH}; use it to inspect and resolve the conflict."
+            pr_title="Resolve upstream/${UPSTREAM_BRANCH} sync into ${BRANCH_NAME}"
+            pr_body="Automated upstream sync failed while directly merging upstream/${UPSTREAM_BRANCH} into ${BRANCH_NAME}. Pi attempted to resolve the failure on this branch; review the diff carefully before merging."
 
-            # The PR branch mirrors upstream/main. If it conflicts with main, GitHub will show that on the PR.
-            git branch -f "${pr_branch}" "upstream/${UPSTREAM_BRANCH}"
-            git push origin "${pr_branch}:${pr_branch}" --force
+            artifact_files=(
+              merge-output.txt
+              push-output.txt
+              git-status.txt
+              conflict-files.txt
+              conflict-diff.txt
+              sync-failure-context.md
+              pi-prompt.md
+              pi-recommendation.md
+              pi-error.txt
+              pr-comment.md
+            )
+
+            if [ -f .git/MERGE_HEAD ]; then
+              if git diff --name-only --diff-filter=U | grep -q .; then
+                echo "Pi left unresolved merge conflicts; falling back to an upstream mirror PR branch."
+                git merge --abort 2>/dev/null || true
+                git reset --hard
+                git branch -f "${pr_branch}" "upstream/${UPSTREAM_BRANCH}"
+                git push origin "${pr_branch}:${pr_branch}" --force
+              else
+                git add -A
+                for file in "${artifact_files[@]}"; do
+                  git reset -q -- "$file" 2>/dev/null || true
+                done
+
+                if git diff --cached --quiet; then
+                  echo "Pi produced no staged resolution changes; falling back to an upstream mirror PR branch."
+                  git merge --abort 2>/dev/null || true
+                  git reset --hard
+                  git branch -f "${pr_branch}" "upstream/${UPSTREAM_BRANCH}"
+                  git push origin "${pr_branch}:${pr_branch}" --force
+                else
+                  git commit -m "Resolve upstream sync conflict"
+                  git push origin "HEAD:${pr_branch}" --force
+                  pi_applied_changes="true"
+                fi
+              fi
+            else
+              # Non-merge failures, such as push failures, may already have a useful local HEAD.
+              git push origin "HEAD:${pr_branch}" --force
+              pi_applied_changes="true"
+            fi
           fi
 
           pr_number="$(gh api "repos/${{ github.repository }}/pulls?state=open&base=${BRANCH_NAME}" \
@@ -347,8 +391,9 @@ jobs:
             echo "- Sync PR branch: \`${pr_branch}\`"
             echo "- Trigger: \`${{ github.event_name }}\`"
             echo "- Force failure test: \`${FORCE_FAILURE}\`"
+            echo "- Pi applied changes: \`${pi_applied_changes}\`"
             echo
-            echo "## Pi recommendation"
+            echo "## Pi resolution summary"
             echo
             cat pi-recommendation.md
             echo
@@ -369,11 +414,11 @@ jobs:
               --method PATCH \
               "repos/${{ github.repository }}/issues/comments/${comment_id}" \
               --field body="$(cat pr-comment.md)" >/dev/null
-            echo "Updated Pi recommendation comment on PR #${pr_number}"
+            echo "Updated Pi resolution comment on PR #${pr_number}"
           else
             gh api \
               --method POST \
               "repos/${{ github.repository }}/issues/${pr_number}/comments" \
               --field body="$(cat pr-comment.md)" >/dev/null
-            echo "Created Pi recommendation comment on PR #${pr_number}"
+            echo "Created Pi resolution comment on PR #${pr_number}"
           fi
