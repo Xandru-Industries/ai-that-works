@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: sync-upstream-main
@@ -32,17 +33,128 @@ jobs:
 
       - name: Merge upstream
         run: |
-          set -euo pipefail
+          set -uo pipefail
 
-          git remote add upstream https://github.com/ai-that-works/ai-that-works.git
+          git remote add upstream https://github.com/ai-that-works/ai-that-works.git 2>/dev/null || \
+            git remote set-url upstream https://github.com/ai-that-works/ai-that-works.git
           git fetch upstream main
 
           git checkout main
-          git merge upstream/main --no-edit || {
-            echo "::error::Merge conflict while syncing upstream/main into main. Resolve the conflict manually, commit it, and push to origin/main."
-            git status --short
-            exit 1
-          }
+
+          set +e
+          git merge upstream/main --no-edit > merge-output.txt 2>&1
+          merge_rc=$?
+          set -e
+
+          cat merge-output.txt
+
+          if [ "$merge_rc" -ne 0 ]; then
+            echo "::error::Merge conflict or merge failure while syncing upstream/main into main. An issue will be opened or updated with details."
+            exit "$merge_rc"
+          fi
 
       - name: Push synced main
-        run: git push origin HEAD:main
+        run: |
+          set -uo pipefail
+
+          set +e
+          git push origin HEAD:main > push-output.txt 2>&1
+          push_rc=$?
+          set -e
+
+          cat push-output.txt
+          exit "$push_rc"
+
+      - name: Open or update issue for failed sync
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          WORKFLOW_NAME: ${{ github.workflow }}
+          BRANCH_NAME: main
+          UPSTREAM_BRANCH: upstream/main
+        run: |
+          set -euo pipefail
+
+          LABEL="upstream-sync"
+          TITLE="Upstream sync failed: upstream/main into main"
+
+          gh label create "$LABEL" \
+            --description "Automated upstream fork sync failed" \
+            --color "D93F0B" 2>/dev/null || true
+
+          git status --short > git-status.txt || true
+          git diff --name-only --diff-filter=U > conflict-files.txt || true
+
+          append_file() {
+            local heading="$1"
+            local file="$2"
+            echo "### ${heading}"
+            echo
+            if [ -s "$file" ]; then
+              echo '```text'
+              head -c 12000 "$file"
+              if [ "$(wc -c < "$file")" -gt 12000 ]; then
+                echo
+                echo "... output truncated; see the workflow run for full logs ..."
+              fi
+              echo
+              echo '```'
+            else
+              echo "_No ${heading} captured._"
+            fi
+            echo
+          }
+
+          {
+            echo "## Upstream sync failed"
+            echo
+            echo "The scheduled fork sync could not merge \`${UPSTREAM_BRANCH}\` into \`${BRANCH_NAME}\`."
+            echo
+            echo "- Workflow: ${WORKFLOW_NAME}"
+            echo "- Run: ${RUN_URL}"
+            echo "- Fork branch: \`${BRANCH_NAME}\`"
+            echo "- Upstream branch: \`${UPSTREAM_BRANCH}\`"
+            echo "- Trigger: \`${{ github.event_name }}\`"
+            echo
+
+            if [ -s conflict-files.txt ]; then
+              echo "## Conflicted files"
+              echo
+              while IFS= read -r file; do
+                [ -n "$file" ] && echo "- \`${file}\`"
+              done < conflict-files.txt
+              echo
+            fi
+
+            echo "## Recommended manual fix"
+            echo
+            echo '```bash'
+            echo 'cd ~/vendor/ai-that-works_ai-that-works'
+            echo 'git checkout main'
+            echo 'git pull origin main'
+            echo 'git fetch upstream'
+            echo 'git merge upstream/main'
+            echo '# Resolve any conflicted files, then:'
+            echo 'git add <resolved-files>'
+            echo 'git commit'
+            echo 'git push origin main'
+            echo '```'
+            echo
+            echo "After the conflict is resolved and pushed, rerun the workflow or wait for the next scheduled sync."
+            echo
+            echo "## Captured error/output"
+            echo
+            append_file "git merge output" merge-output.txt
+            append_file "git push output" push-output.txt
+            append_file "git status" git-status.txt
+          } > issue-body.md
+
+          existing_issue="$(gh issue list --state open --label "$LABEL" --json number --jq '.[0].number' || true)"
+
+          if [ -n "$existing_issue" ]; then
+            gh issue comment "$existing_issue" --body-file issue-body.md
+            echo "Updated existing issue #${existing_issue}"
+          else
+            gh issue create --title "$TITLE" --label "$LABEL" --body-file issue-body.md
+          fi
