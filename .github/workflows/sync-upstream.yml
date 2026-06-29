@@ -8,11 +8,19 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
   issues: write
 
 concurrency:
   group: sync-upstream-main
   cancel-in-progress: false
+
+env:
+  BRANCH_NAME: main
+  UPSTREAM_REPO: ai-that-works/ai-that-works
+  UPSTREAM_BRANCH: main
+  SYNC_PR_BRANCH: sync/upstream-main
+  HAS_ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY != '' }}
 
 jobs:
   sync:
@@ -35,21 +43,21 @@ jobs:
         run: |
           set -uo pipefail
 
-          git remote add upstream https://github.com/ai-that-works/ai-that-works.git 2>/dev/null || \
-            git remote set-url upstream https://github.com/ai-that-works/ai-that-works.git
-          git fetch upstream main
+          git remote add upstream "https://github.com/${UPSTREAM_REPO}.git" 2>/dev/null || \
+            git remote set-url upstream "https://github.com/${UPSTREAM_REPO}.git"
+          git fetch upstream "${UPSTREAM_BRANCH}"
 
-          git checkout main
+          git checkout "${BRANCH_NAME}"
 
           set +e
-          git merge upstream/main --no-edit > merge-output.txt 2>&1
+          git merge "upstream/${UPSTREAM_BRANCH}" --no-edit > merge-output.txt 2>&1
           merge_rc=$?
           set -e
 
           cat merge-output.txt
 
           if [ "$merge_rc" -ne 0 ]; then
-            echo "::error::Merge conflict or merge failure while syncing upstream/main into main. An issue will be opened or updated with details."
+            echo "::error::Merge conflict or merge failure while syncing upstream/${UPSTREAM_BRANCH} into ${BRANCH_NAME}. A sync PR will be opened or updated."
             exit "$merge_rc"
           fi
 
@@ -58,33 +66,150 @@ jobs:
           set -uo pipefail
 
           set +e
-          git push origin HEAD:main > push-output.txt 2>&1
+          git push origin "HEAD:${BRANCH_NAME}" > push-output.txt 2>&1
           push_rc=$?
           set -e
 
           cat push-output.txt
           exit "$push_rc"
 
-      - name: Open or update issue for failed sync
+      - name: Capture failure context
+        if: failure()
+        run: |
+          set -euo pipefail
+
+          git status --short > git-status.txt || true
+          git diff --name-only --diff-filter=U > conflict-files.txt || true
+          git diff --cc > conflict-diff.txt || true
+
+          {
+            echo "# Failed upstream sync context"
+            echo
+            echo "- Fork branch: ${BRANCH_NAME}"
+            echo "- Upstream branch: upstream/${UPSTREAM_BRANCH}"
+            echo "- Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo
+            echo "## Merge output"
+            echo '```text'
+            if [ -s merge-output.txt ]; then cat merge-output.txt; else echo "No merge output captured."; fi
+            echo '```'
+            echo
+            echo "## Git status"
+            echo '```text'
+            if [ -s git-status.txt ]; then cat git-status.txt; else echo "No git status captured."; fi
+            echo '```'
+            echo
+            echo "## Conflicted files"
+            if [ -s conflict-files.txt ]; then
+              sed 's/^/- `/' conflict-files.txt | sed 's/$/`/'
+            else
+              echo "No unmerged files detected. This may be a push or workflow failure rather than a merge conflict."
+            fi
+            echo
+            echo "## Combined conflict diff"
+            echo '```diff'
+            if [ -s conflict-diff.txt ]; then head -c 40000 conflict-diff.txt; else echo "No combined conflict diff captured."; fi
+            echo
+            echo '```'
+          } > sync-failure-context.md
+
+      - name: Install Node for Pi
+        if: failure() && env.HAS_ANTHROPIC_API_KEY == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Ask Pi for recommended fix
+        if: failure() && env.HAS_ANTHROPIC_API_KEY == 'true'
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PI_MODEL: ${{ vars.PI_MODEL || 'sonnet' }}
+          PI_SKIP_VERSION_CHECK: "1"
+          PI_TELEMETRY: "0"
+        run: |
+          set -euo pipefail
+
+          npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+
+          cat > pi-prompt.md <<'EOF'
+          You are Pi running in GitHub Actions after an automated fork sync failed.
+
+          Goal: write a concise Markdown PR comment with a recommended human fix. Do not edit files, do not commit, and do not push.
+
+          Context:
+          - The workflow tried to merge upstream/main into main.
+          - The current working tree may contain Git conflict markers from the failed merge.
+          - Use read-only inspection only.
+
+          Output exactly these sections:
+          1. Summary
+          2. Likely cause
+          3. Recommended resolution by file
+          4. Local commands to fix
+          5. What to test/check after resolving
+
+          Be specific. If the captured information is insufficient, say what is missing and give the safest manual next step.
+          EOF
+
+          cat sync-failure-context.md >> pi-prompt.md
+
+          pi \
+            --print \
+            --no-session \
+            --no-context-files \
+            --no-skills \
+            --no-extensions \
+            --no-prompt-templates \
+            --no-themes \
+            --no-approve \
+            --tools read,grep,find,ls \
+            --model "${PI_MODEL}" \
+            "$(cat pi-prompt.md)" > pi-recommendation.md
+
+          test -s pi-recommendation.md
+
+      - name: Open or update sync PR and comment
         if: failure()
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          WORKFLOW_NAME: ${{ github.workflow }}
-          BRANCH_NAME: main
-          UPSTREAM_BRANCH: upstream/main
         run: |
           set -euo pipefail
 
-          LABEL="upstream-sync"
-          TITLE="Upstream sync failed: upstream/main into main"
+          if [ ! -s pi-recommendation.md ]; then
+            cat > pi-recommendation.md <<'EOF'
+          _Pi did not produce a recommendation. Make sure the repository secret `ANTHROPIC_API_KEY` is configured, then rerun the workflow._
+          EOF
+          fi
 
-          gh label create "$LABEL" \
-            --description "Automated upstream fork sync failed" \
-            --color "D93F0B" 2>/dev/null || true
+          # Leave the conflicted merge state before creating/updating the PR branch.
+          git merge --abort 2>/dev/null || true
+          git reset --hard
 
-          git status --short > git-status.txt || true
-          git diff --name-only --diff-filter=U > conflict-files.txt || true
+          git remote add upstream "https://github.com/${UPSTREAM_REPO}.git" 2>/dev/null || \
+            git remote set-url upstream "https://github.com/${UPSTREAM_REPO}.git"
+          git fetch upstream "${UPSTREAM_BRANCH}"
+
+          # The PR branch mirrors upstream/main. If it conflicts with main, GitHub will show that on the PR.
+          git branch -f "${SYNC_PR_BRANCH}" "upstream/${UPSTREAM_BRANCH}"
+          git push origin "${SYNC_PR_BRANCH}:${SYNC_PR_BRANCH}" --force
+
+          pr_number="$(gh pr list \
+            --state open \
+            --base "${BRANCH_NAME}" \
+            --head "${SYNC_PR_BRANCH}" \
+            --json number \
+            --jq '.[0].number' || true)"
+
+          if [ -z "${pr_number}" ]; then
+            pr_url="$(gh pr create \
+              --base "${BRANCH_NAME}" \
+              --head "${SYNC_PR_BRANCH}" \
+              --title "Sync upstream/${UPSTREAM_BRANCH} into ${BRANCH_NAME}" \
+              --body "Automated upstream sync failed while directly merging upstream/${UPSTREAM_BRANCH} into ${BRANCH_NAME}. This PR mirrors upstream/${UPSTREAM_BRANCH}; use it to inspect and resolve the conflict.")"
+            pr_number="${pr_url##*/}"
+          fi
 
           append_file() {
             local heading="$1"
@@ -107,54 +232,39 @@ jobs:
           }
 
           {
+            echo "<!-- upstream-sync-pi-recommendation -->"
             echo "## Upstream sync failed"
             echo
-            echo "The scheduled fork sync could not merge \`${UPSTREAM_BRANCH}\` into \`${BRANCH_NAME}\`."
+            echo "The scheduled fork sync could not merge \`upstream/${UPSTREAM_BRANCH}\` into \`${BRANCH_NAME}\`."
             echo
-            echo "- Workflow: ${WORKFLOW_NAME}"
-            echo "- Run: ${RUN_URL}"
+            echo "- Workflow run: ${RUN_URL}"
             echo "- Fork branch: \`${BRANCH_NAME}\`"
-            echo "- Upstream branch: \`${UPSTREAM_BRANCH}\`"
+            echo "- Upstream branch: \`upstream/${UPSTREAM_BRANCH}\`"
+            echo "- Sync PR branch: \`${SYNC_PR_BRANCH}\`"
             echo "- Trigger: \`${{ github.event_name }}\`"
             echo
-
-            if [ -s conflict-files.txt ]; then
-              echo "## Conflicted files"
-              echo
-              while IFS= read -r file; do
-                [ -n "$file" ] && echo "- \`${file}\`"
-              done < conflict-files.txt
-              echo
-            fi
-
-            echo "## Recommended manual fix"
+            echo "## Pi recommendation"
             echo
-            echo '```bash'
-            echo 'cd ~/vendor/ai-that-works_ai-that-works'
-            echo 'git checkout main'
-            echo 'git pull origin main'
-            echo 'git fetch upstream'
-            echo 'git merge upstream/main'
-            echo '# Resolve any conflicted files, then:'
-            echo 'git add <resolved-files>'
-            echo 'git commit'
-            echo 'git push origin main'
-            echo '```'
+            cat pi-recommendation.md
             echo
-            echo "After the conflict is resolved and pushed, rerun the workflow or wait for the next scheduled sync."
-            echo
-            echo "## Captured error/output"
+            echo "## Captured workflow output"
             echo
             append_file "git merge output" merge-output.txt
             append_file "git push output" push-output.txt
             append_file "git status" git-status.txt
-          } > issue-body.md
+          } > pr-comment.md
 
-          existing_issue="$(gh issue list --state open --label "$LABEL" --json number --jq '.[0].number' || true)"
+          comment_id="$(gh api "repos/${{ github.repository }}/issues/${pr_number}/comments" \
+            --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | contains("<!-- upstream-sync-pi-recommendation -->"))) | .id' \
+            | tail -n 1 || true)"
 
-          if [ -n "$existing_issue" ]; then
-            gh issue comment "$existing_issue" --body-file issue-body.md
-            echo "Updated existing issue #${existing_issue}"
+          if [ -n "${comment_id}" ]; then
+            gh api \
+              --method PATCH \
+              "repos/${{ github.repository }}/issues/comments/${comment_id}" \
+              --field body="$(cat pr-comment.md)" >/dev/null
+            echo "Updated Pi recommendation comment on PR #${pr_number}"
           else
-            gh issue create --title "$TITLE" --label "$LABEL" --body-file issue-body.md
+            gh pr comment "${pr_number}" --body-file pr-comment.md
+            echo "Created Pi recommendation comment on PR #${pr_number}"
           fi
