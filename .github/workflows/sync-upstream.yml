@@ -306,11 +306,8 @@ jobs:
             git push origin "${pr_branch}:${pr_branch}" --force
           fi
 
-          pr_number="$(gh pr list \
-            --state open \
-            --base "${BRANCH_NAME}" \
-            --json number,headRefName \
-            --jq ".[] | select(.headRefName == \"${pr_branch}\") | .number" \
+          pr_number="$(gh api "repos/${{ github.repository }}/pulls?state=open&base=${BRANCH_NAME}" \
+            --jq ".[] | select(.head.ref == \"${pr_branch}\") | .number" \
             | head -n 1 || true)"
 
           if [ -z "${pr_number}" ]; then
@@ -378,6 +375,9 @@ jobs:
               --field body="$(cat pr-comment.md)" >/dev/null
             echo "Updated Pi recommendation comment on PR #${pr_number}"
           else
-            gh pr comment "${pr_number}" --body-file pr-comment.md
+            gh api \
+              --method POST \
+              "repos/${{ github.repository }}/issues/${pr_number}/comments" \
+              --field body="$(cat pr-comment.md)" >/dev/null
             echo "Created Pi recommendation comment on PR #${pr_number}"
           fi
