@@ -1,0 +1,37 @@
+code mode, what you need to know:
+
+if you give models 10,000 tools in a normal way, it will flood their context window so you need some form of lazy loading
+
+you could implement lazy loading to fix this (give the model two tools, `search` and `call`) but the model is still missing a way to filter the output of large tool calls and chain commands
+
+for that, you need some form of `execution layer` where the model can:
+
+- discover lazily loaded tools
+- chain calls
+- filter outputs
+
+the first one of these was bash, it gave the model a place to do all this in, then there was just-bash which extends the same concepts and now we have code mode, which is all the same concepts of 'give the model a place to do these calls'
+
+why js? no particular reason actually, you could likely get most of the benefits of code mode via something like just bash as well
+
+but in the same way that we don't write our production applications in bash, code mode lets you get more readable output and also has other benefits in being able to be used in generative ui and workflows
+
+that's also why it's worth understanding the concepts behind why something like code mode matters, it's not specifically code mode that's important here, it's the principles of lazy loading, chaining, and output filtering
+
+> are you dependent on the mcp author to implement it?
+
+mcp authors shouldn't be implementing codemode unless there's an extremely good reason for them to. the execution environment is a harness detail
+
+> can i add it infront of a poorly implemented mcp
+
+yes, for example http://executor.sh lets you add any mcp / api / graphql / in the future clis into something that can be invoked via code mode
+
+> how can i implement it in my own mcp
+
+you shouldn't need to, code mode is a harness implementation detail, the same way you wouldn't implement bash in your mcp
+
+MCP is in a weird spot at the moment where the execution layer of clients is super varied, some like claude code do lazy loading tools, others like codex have native code mode in prototyping
+
+the recommendation i'd give to people is to just push for the harnesses to be better rather than trying to hack around the limitations, the reason for this is if every MCP client implemented code mode then you lose a ton of composability benefits
+
+Source: https://x.com/RhysSullivan/status/2071400791680917775
