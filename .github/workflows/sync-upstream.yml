@@ -152,7 +152,7 @@ jobs:
         continue-on-error: true
         env:
           LLM_PROXY_API_KEY: ${{ secrets.LLM_PROXY_API_KEY }}
-          PI_MODEL: ${{ vars.PI_MODEL || 'gpt-5.5' }}
+          PI_MODEL: ${{ vars.PI_MODEL || 'codex/gpt-5.5' }}
           PI_CODING_AGENT_DIR: ${{ github.workspace }}/.pi-agent
           PI_SKIP_VERSION_CHECK: "1"
           PI_TELEMETRY: "0"
@@ -169,36 +169,28 @@ jobs:
                 "baseUrl": "http://100.72.69.60:8000/v1",
                 "api": "openai-completions",
                 "apiKey": "$LLM_PROXY_API_KEY",
-                "authHeader": true,
-                "compat": {
-                  "supportsStore": false,
-                  "supportsDeveloperRole": false,
-                  "supportsReasoningEffort": false,
-                  "supportsUsageInStreaming": false,
-                  "maxTokensField": "max_tokens"
-                },
                 "models": [
                   {
-                    "id": "gpt-4.1",
+                    "id": "copilot/gpt-4.1",
                     "name": "GPT-4.1 via LLM proxy",
                     "input": ["text"],
                     "contextWindow": 1047576,
                     "maxTokens": 32768
                   },
                   {
-                    "id": "gpt-4o",
+                    "id": "copilot/gpt-4o",
                     "name": "GPT-4o via LLM proxy",
                     "input": ["text"],
                     "contextWindow": 128000,
                     "maxTokens": 16384
                   },
                   {
-                    "id": "gpt-5.5",
+                    "id": "codex/gpt-5.5",
                     "name": "GPT-5.5 via LLM proxy",
-                    "api": "openai-responses",
-                    "input": ["text"],
-                    "contextWindow": 400000,
-                    "maxTokens": 32768
+                    "reasoning": true,
+                    "input": ["text", "image"],
+                    "contextWindow": 272000,
+                    "maxTokens": 128000
                   }
                 ]
               }
