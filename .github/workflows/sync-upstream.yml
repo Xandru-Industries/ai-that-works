@@ -233,7 +233,7 @@ jobs:
             --no-tools \
             --provider llm-proxy \
             --model "${PI_MODEL}" \
-            --thinking off \
+            --thinking high \
             "$(cat pi-prompt.md)" > pi-recommendation.md 2> pi-error.txt
           pi_rc=$?
           set -e
