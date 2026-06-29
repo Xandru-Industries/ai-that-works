@@ -133,7 +133,7 @@ jobs:
         continue-on-error: true
         env:
           LLM_PROXY_API_KEY: ${{ secrets.LLM_PROXY_API_KEY }}
-          PI_MODEL: ${{ vars.PI_MODEL || 'gpt-4.1' }}
+          PI_MODEL: ${{ vars.PI_MODEL || 'gpt-5.5' }}
           PI_CODING_AGENT_DIR: ${{ github.workspace }}/.pi-agent
           PI_SKIP_VERSION_CHECK: "1"
           PI_TELEMETRY: "0"
@@ -171,8 +171,8 @@ jobs:
                     "maxTokens": 16384
                   },
                   {
-                    "id": "gpt-5",
-                    "name": "GPT-5 via LLM proxy",
+                    "id": "gpt-5.5",
+                    "name": "GPT-5.5 via LLM proxy",
                     "input": ["text"],
                     "contextWindow": 400000,
                     "maxTokens": 32768
