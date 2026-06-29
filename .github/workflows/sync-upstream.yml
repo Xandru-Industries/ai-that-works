@@ -309,9 +309,9 @@ jobs:
           pr_number="$(gh pr list \
             --state open \
             --base "${BRANCH_NAME}" \
-            --head "${pr_branch}" \
-            --json number \
-            --jq '.[0].number' || true)"
+            --json number,headRefName \
+            --jq ".[] | select(.headRefName == \"${pr_branch}\") | .number" \
+            | head -n 1 || true)"
 
           if [ -z "${pr_number}" ]; then
             pr_url="$(gh pr create \
