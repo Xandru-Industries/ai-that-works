@@ -2,6 +2,12 @@ name: Sync upstream
 
 on:
   workflow_dispatch:
+    inputs:
+      force_failure:
+        description: "Test failure path: create a disposable sync PR and Pi comment"
+        type: boolean
+        default: false
+        required: false
   schedule:
     # Every 6 hours. GitHub schedules run in UTC.
     - cron: "0 */6 * * *"
@@ -20,6 +26,8 @@ env:
   UPSTREAM_REPO: ai-that-works/ai-that-works
   UPSTREAM_BRANCH: main
   SYNC_PR_BRANCH: sync/upstream-main
+  TEST_SYNC_PR_BRANCH: sync/upstream-main-test
+  FORCE_FAILURE: ${{ github.event_name == 'workflow_dispatch' && inputs.force_failure }}
   HAS_LLM_PROXY_API_KEY: ${{ secrets.LLM_PROXY_API_KEY != '' }}
   HAS_TAILSCALE_OAUTH: ${{ secrets.AI_THAT_WORKS_TS_OAUTH_CLIENT_ID != '' && secrets.AI_THAT_WORKS_TS_OAUTH_SECRET != '' }}
 
@@ -49,6 +57,17 @@ jobs:
           git fetch upstream "${UPSTREAM_BRANCH}"
 
           git checkout "${BRANCH_NAME}"
+
+          if [ "${FORCE_FAILURE}" = "true" ]; then
+            {
+              echo "Simulated upstream sync failure for workflow validation."
+              echo "This was triggered with workflow_dispatch input force_failure=true."
+              echo "No real upstream merge was attempted after this point."
+            } > merge-output.txt
+            cat merge-output.txt
+            echo "::error::Simulated upstream sync failure. A test sync PR will be opened or updated."
+            exit 1
+          fi
 
           set +e
           git merge "upstream/${UPSTREAM_BRANCH}" --no-edit > merge-output.txt 2>&1
@@ -244,23 +263,47 @@ jobs:
             git remote set-url upstream "https://github.com/${UPSTREAM_REPO}.git"
           git fetch upstream "${UPSTREAM_BRANCH}"
 
-          # The PR branch mirrors upstream/main. If it conflicts with main, GitHub will show that on the PR.
-          git branch -f "${SYNC_PR_BRANCH}" "upstream/${UPSTREAM_BRANCH}"
-          git push origin "${SYNC_PR_BRANCH}:${SYNC_PR_BRANCH}" --force
+          if [ "${FORCE_FAILURE}" = "true" ]; then
+            pr_branch="${TEST_SYNC_PR_BRANCH}"
+            pr_title="Test upstream sync failure handling"
+            pr_body="This disposable PR was created by a manual force_failure=true workflow run to validate the upstream sync failure path and Pi recommendation comment. Do not merge."
+
+            git checkout -B "${pr_branch}" "origin/${BRANCH_NAME}"
+            mkdir -p .github
+            {
+              echo "# Upstream sync failure-path test"
+              echo
+              echo "Workflow run: ${RUN_URL}"
+              echo "Created at: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+              echo
+              echo "This file exists only to make the test PR non-empty. Do not merge."
+            } > .github/upstream-sync-failure-test.md
+            git add .github/upstream-sync-failure-test.md
+            git commit -m "Test upstream sync failure handling"
+            git push origin "${pr_branch}:${pr_branch}" --force
+          else
+            pr_branch="${SYNC_PR_BRANCH}"
+            pr_title="Sync upstream/${UPSTREAM_BRANCH} into ${BRANCH_NAME}"
+            pr_body="Automated upstream sync failed while directly merging upstream/${UPSTREAM_BRANCH} into ${BRANCH_NAME}. This PR mirrors upstream/${UPSTREAM_BRANCH}; use it to inspect and resolve the conflict."
+
+            # The PR branch mirrors upstream/main. If it conflicts with main, GitHub will show that on the PR.
+            git branch -f "${pr_branch}" "upstream/${UPSTREAM_BRANCH}"
+            git push origin "${pr_branch}:${pr_branch}" --force
+          fi
 
           pr_number="$(gh pr list \
             --state open \
             --base "${BRANCH_NAME}" \
-            --head "${SYNC_PR_BRANCH}" \
+            --head "${pr_branch}" \
             --json number \
             --jq '.[0].number' || true)"
 
           if [ -z "${pr_number}" ]; then
             pr_url="$(gh pr create \
               --base "${BRANCH_NAME}" \
-              --head "${SYNC_PR_BRANCH}" \
-              --title "Sync upstream/${UPSTREAM_BRANCH} into ${BRANCH_NAME}" \
-              --body "Automated upstream sync failed while directly merging upstream/${UPSTREAM_BRANCH} into ${BRANCH_NAME}. This PR mirrors upstream/${UPSTREAM_BRANCH}; use it to inspect and resolve the conflict.")"
+              --head "${pr_branch}" \
+              --title "${pr_title}" \
+              --body "${pr_body}")"
             pr_number="${pr_url##*/}"
           fi
 
@@ -293,8 +336,9 @@ jobs:
             echo "- Workflow run: ${RUN_URL}"
             echo "- Fork branch: \`${BRANCH_NAME}\`"
             echo "- Upstream branch: \`upstream/${UPSTREAM_BRANCH}\`"
-            echo "- Sync PR branch: \`${SYNC_PR_BRANCH}\`"
+            echo "- Sync PR branch: \`${pr_branch}\`"
             echo "- Trigger: \`${{ github.event_name }}\`"
+            echo "- Force failure test: \`${FORCE_FAILURE}\`"
             echo
             echo "## Pi recommendation"
             echo
