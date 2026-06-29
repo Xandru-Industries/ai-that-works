@@ -224,6 +224,7 @@ jobs:
 
           cat sync-failure-context.md >> pi-prompt.md
 
+          set +e
           pi \
             --print \
             --no-session \
@@ -237,14 +238,28 @@ jobs:
             --provider llm-proxy \
             --model "${PI_MODEL}" \
             --thinking off \
-            "$(cat pi-prompt.md)" > pi-recommendation.md
+            "$(cat pi-prompt.md)" > pi-recommendation.md 2> pi-error.txt
+          pi_rc=$?
+          set -e
 
-          test -s pi-recommendation.md
+          if [ "$pi_rc" -ne 0 ] || [ ! -s pi-recommendation.md ]; then
+            {
+              echo "_Pi did not produce a recommendation._"
+              echo
+              echo "Pi exit code: \`${pi_rc}\`"
+              echo
+              echo "### Pi stderr"
+              echo
+              echo '```text'
+              if [ -s pi-error.txt ]; then cat pi-error.txt; else echo "No stderr captured."; fi
+              echo '```'
+            } > pi-recommendation.md
+          fi
 
       - name: Open or update sync PR and comment
         if: failure()
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.SYNC_BOT_GITHUB_TOKEN || github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           set -euo pipefail
@@ -349,6 +364,7 @@ jobs:
             append_file "git merge output" merge-output.txt
             append_file "git push output" push-output.txt
             append_file "git status" git-status.txt
+            append_file "Pi stderr" pi-error.txt
           } > pr-comment.md
 
           comment_id="$(gh api "repos/${{ github.repository }}/issues/${pr_number}/comments" \
