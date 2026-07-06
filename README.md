@@ -12,14 +12,14 @@
 
 <div align="center">
 <h2>🦄 <strong>Next Episode</strong></h2>
-<h3><strong>Product Specs with AI</strong></h3>
-<p><strong>Tuesday, June 16, 2026 at 10 AM PST</strong></p>
-<p><em>We've talked a lot about design discussions for planning work with AI and getting leverage before writing the code, but this process has a common pitfall: it combines product decisions (how does it work, what is the user experience) with technical decisions (how do we build it, what patterns do we follow).
+<h3><strong>agent observability</strong></h3>
+<p><strong>Tuesday, July 7, 2026 at 10 AM PST</strong></p>
+<p><em>In this episode, we will dive into AI agent observability and answer a question every production engineer eventually faces: how do you diagnose why an autonomous agent went off the rails three days ago?
 
-This complecting of concerns can cause important questions to be missed. On today's AI that works we'll dig into techniques to split out product vs. technical questions to enable less-technical folks to participate in product specification that is grounded in codebase research, and ensure technical depth is achieved without getting distracted by product questions.
+When you are dealing with non-deterministic tools, old-school debugging habits like inserting `print("here")` statements fails to scale. We will break down the essentials of modern agent tracking, from implementing structured logging for complex tool calls to establishing robust tracing that allows you to replay and reconstruct an agent's exact decision tree.
 </em></p>
 
-<a href="https://luma.com/ai-product-specs" target="_blank">
+<a href="https://luma.com/aitw-agent-observability" target="_blank">
 <img src="https://img.shields.io/badge/🦄_REGISTER_NOW-Join_Live_Session-ff4444?style=for-the-badge&logo=calendar" alt="Register Now">
 </a>
 
@@ -103,10 +103,38 @@ Before joining, get familiar with our toolkit:
         <div style="margin-bottom: 2px;">
           <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
         </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-07-07</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#64</strong>: agent observability</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="./2026-07-07-agent-observability">code</a> • <a href="https://luma.com/aitw-agent-observability">register</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">In this episode, we will dive into AI agent observability and answer a question every production engineer eventually faces: how do you diagnose why an autonomous agent went off the rails three days ago?
+
+When you are dealing with non-deterministic tools, old-school debugging habits like inserting `print("here")` statements fails to scale. We will break down the essentials of modern agent tracking, from implementing structured logging for complex tool calls to establishing robust tracing that allows you to replay and reconstruct an agent's exact decision tree.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-06-23</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#63</strong>: Software Factory for Agent Tools</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="https://www.youtube.com/watch?v=485FGIq8LKM">watch</a> • <a href="./2026-06-23-software-factory-for-agent-tools">code</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">Everyone's obsessed with software factories, and the core of a software factory is a persistent feedback loop - in this episode Vaibhav and Dhilan will showcase a loop they built to test new BAML language features 24/7 and improve the language based on feedback from coding agents trying to implement features.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-06-16</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#62</strong>: Product Specs with AI</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2026-06-16-product-specs-with-ai">code</a> • <a href="https://luma.com/ai-product-specs">register</a>
+          <a href="https://www.youtube.com/watch?v=0LPBw3NO3Jc">watch</a> • <a href="./2026-06-16-product-specs-with-ai">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">We've talked a lot about design discussions for planning work with AI and getting leverage before writing the code, but this process has a common pitfall: it combines product decisions (how does it work, what is the user experience) with technical decisions (how do we build it, what patterns do we follow).
