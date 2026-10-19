@@ -12,12 +12,12 @@ description: |
 
   ​Meet Dex Horthy, founder at HumanLayer and coiner of the term Context Engineering. He spent 10+ years building devops tools at Replicated, Sprout Social and JPL. DevOps junkie turned AI Engineer.
 event_link: https://luma.com/ai-for-writing
-eventDate: 2026-10-27T18:00:00Z
+eventDate: 2026-11-03T18:00:00Z
 media:
   url: https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt
   type: video/youtube
 links:
-  code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-10-27-using-ai-for-writing
+  code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-11-03-using-ai-for-writing
 season: 2
 episode: 80
 event_type: episode
